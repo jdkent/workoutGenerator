@@ -6,12 +6,43 @@ import re
 # import only system from os 
 from os import system, name 
 
+import numpy as np
+import simpleaudio as sa
+
 import muscles as ms
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+def beep(freq=880, T=1.0):
+    sample_rate = 44100
+    t = np.linspace(0, T, int(T * sample_rate), False)
+
+    note = np.sin(freq * t * 2 * np.pi)
+
+    note *= 32767 / np.max(np.abs(note))
+
+    note = note.astype(np.int16)
+
+    play_obj = sa.play_buffer(note, 1, 2, sample_rate)
+
+    play_obj.wait_done()
 
 
 @dataclass
 class BaseExercise:
-    count: int
+    on_time: int = 0
+    reps: int = 0
 
     PATTERN = re.compile(r'(?<!^)(?=[A-Z])')
 
@@ -25,21 +56,32 @@ class BaseExercise:
         else: 
             _ = system('clear') 
 
-    def countdown(self, t): 
+    def countdown(self, t):
+        first_t = t
         while t: 
             mins, secs = divmod(t, 60) 
             timer = '{:02d}:{:02d}'.format(mins, secs) 
             print(timer, end="\r") 
-            time.sleep(1) 
+            if first_t == t:
+                beep()
+            else:
+                time.sleep(1) 
             t -= 1
 
     def run(self, up_next=None):
+        self.clear()
         name = self.PATTERN.sub(' ', self.__class__.__name__)
-        print(f"Start: {name}")
+        if self.reps > 0:
+            print(f"{bcolors.OKGREEN}{bcolors.BOLD}{bcolors.UNDERLINE}Start: {self.reps} {name}{bcolors.ENDC}")
+        else:
+            print(f"{bcolors.OKGREEN}{bcolors.BOLD}{bcolors.UNDERLINE}Start: {name}{bcolors.ENDC}")
         if up_next:
             up_next_name = self.PATTERN.sub(' ', up_next.__class__.__name__)
-            print(f"Up Next: {up_next_name}")
-        self.countdown(self.count)
+            if up_next.reps > 0:
+                print(f"{bcolors.FAIL}Up Next: {up_next.reps} {up_next_name}{bcolors.ENDC}")
+            else:
+                print(f"{bcolors.FAIL}Up Next: {up_next_name}{bcolors.ENDC}")
+        self.countdown(self.on_time)
         self.clear()
 
 class PushUp(BaseExercise):
@@ -85,7 +127,7 @@ class DeadLift(BaseExercise):
     muscles = (ms.LowerBack, ms.Hamstrings)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
-    rep_time = 2.5
+    rep_time = 3.0
 
 class Lunge(BaseExercise):
     muscles = (ms.Quadriceps,)
@@ -100,7 +142,7 @@ class JumpingJack(BaseExercise):
     muscles = (ms.Shoulders, ms.Calves)
     etype = 'cardio'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 1.0
 
 class FireHydrant(BaseExercise):
     muscles = (ms.Abductors,)
@@ -114,11 +156,18 @@ class SidePlank(BaseExercise):
     equipment = (None, 'dumbbell')
     rep_time = None
 
+class SidePlankDip(SidePlank):
+    rep_time = 1.0
+
+
+class SidePlankRotations(SidePlank):
+    rep_time = 1.25
+
 class SquatJump(BaseExercise):
     muscles = (ms.Quadriceps,)
     etype = 'cardio'
     equipment = (None,)
-    rep_time = 2.0
+    rep_time = 1.75
 
 class Dip(BaseExercise):
     muscles = (ms.Triceps, ms.Chest)
@@ -136,7 +185,7 @@ class Bridge(BaseExercise):
     muscles = (ms.LowerBack, ms.Glutes, ms.Hamstrings)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 1.25
 
 class Squat(BaseExercise):
     muscles = (ms.Quadriceps, ms.Glutes)
@@ -157,26 +206,26 @@ class FrogPressBridge(BaseExercise):
     muscles = (ms.LowerBack, ms.Abductors)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 1.25
 
 class SingleLegBridge(Bridge):
-    pass
+    rep_time = 1.5
 
 
 class CalfRaise(BaseExercise):
     muscles = (ms.Calves,)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 1.25
 
 class DownDogPushUp(PushUp):
-    pass
+    rep_time = 2.5
 
 class LegLift(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 1.5
+    rep_time = 2.0
 
 class ShoulderPress(BaseExercise):
     muscles = (ms.Shoulders,)
@@ -203,11 +252,11 @@ class AlternateJack(BaseExercise):
     muscles = (ms.LowerBack, ms.Quadriceps, ms.Calves)
     etype = 'cardio'
     equipment = (None,)
-    rep_time = 1.0
+    rep_time = 1.1
 
 class UpDownPlank(Plank):
     muscles = (ms.Abdominals, ms.Shoulders, ms.Triceps,)
-    rep_time = 1.5
+    rep_time = 2.5
 
 class InchWorm(BaseExercise):
     muscles = (ms.Abdominals,)
@@ -225,13 +274,13 @@ class VUp(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 1.5
 
 class StarJump(BaseExercise):
     muscles = (ms.Quadriceps,)
     etype = 'cardio'
     equipment = (None,)
-    rep_time = 1.5
+    rep_time = 3.0
 
 class SkaterJump(BaseExercise):
     muscles = (ms.Quadriceps, ms.Abductors)
@@ -249,7 +298,7 @@ class Burpee(BaseExercise):
     muscles = (ms.Quadriceps, ms.Chest, ms.Shoulders, ms.Abdominals)
     etype = 'cardio'
     equipment = (None,)
-    rep_time = 5.0
+    rep_time = 4.0
 
 class Curl(BaseExercise):
     muscles = (ms.Biceps,)
@@ -279,7 +328,7 @@ class WindshieldWipers(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 2.25
+    rep_time = 2.75
 
 class ChestFlies(BaseExercise):
     muscles = (ms.Chest,)
@@ -303,10 +352,10 @@ class AccordianCrunches(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 1.25
 
 class ClappingPushUp(PushUp):
-    pass
+    rep_time = 2.5
 
 class NarrowPushUp(PushUp):
     pass
@@ -326,6 +375,7 @@ class HalfBurpee(Burpee):
 
 class GobletSquat(Squat):
     equipment = ('kettlebell', 'dumbbell')
+    rep_time = 2.0
 
 class LateralRaises(BaseExercise):
     muscles = (ms.Shoulders,)
@@ -347,10 +397,9 @@ class BoatHold(BaseExercise):
 
 class SwitchLunge(Lunge):
     etype = 'cardio'
-    rep_time = 1.5
+    rep_time = 2.0
 
-
-    
+ 
 class BandPullApart(BaseExercise):
     muscles = (ms.MiddleBack,)
     etype = 'strength'
@@ -373,7 +422,7 @@ class InnerThighRaises(BaseExercise):
     muscles = (ms.Adductors,)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 1.0
 
 class PlankJack(Plank):
     muscles = (ms.Abdominals, ms.Quadriceps, ms.Shoulders)
@@ -384,7 +433,7 @@ class UprightRow(BaseExercise):
     muscles = (ms.Traps, ms.Shoulders)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
-    rep_time = 1.25
+    rep_time = 1.5
 
 class BentOverRow(BaseExercise):
     muscles = (ms.MiddleBack,)
@@ -414,7 +463,7 @@ class Wiggle(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 0.75
+    rep_time = 0.65
 
 class ArnoldPress(BaseExercise):
     muscles = (ms.Shoulders,)
@@ -448,3 +497,4 @@ ALL_EXERCISES = {
     }
 del ALL_EXERCISES['BaseExercise']
 del ALL_EXERCISES['Rest']
+del ALL_EXERCISES['bcolors']
