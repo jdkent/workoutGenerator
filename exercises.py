@@ -58,17 +58,25 @@ class BaseExercise:
 
     def countdown(self, t):
         first_t = t
-        while t: 
-            mins, secs = divmod(t, 60) 
-            timer = '{:02d}:{:02d}'.format(mins, secs) 
-            print(timer, end="\r") 
-            if first_t == t:
-                beep()
-            else:
-                time.sleep(1) 
-            t -= 1
+        while t:
+            try:
+                mins, secs = divmod(t, 60) 
+                timer = '{:02d}:{:02d}'.format(mins, secs) 
+                print(timer, end="\r") 
+                if first_t == t:
+                    beep()
+                else:
+                    time.sleep(1)
+                t -= 1
+            except KeyboardInterrupt:
+                end = input("Paused, type 'quit' to end program")
+                if end == 'quit':
+                    raise KeyboardInterrupt
+                else:
+                    continue
 
-    def run(self, up_next=None):
+
+    def run(self, up_next=None, idx=None, total=None):
         self.clear()
         name = self.PATTERN.sub(' ', self.__class__.__name__)
         if self.reps > 0:
@@ -81,6 +89,7 @@ class BaseExercise:
                 print(f"{bcolors.FAIL}Up Next: {up_next.reps} {up_next_name}{bcolors.ENDC}")
             else:
                 print(f"{bcolors.FAIL}Up Next: {up_next_name}{bcolors.ENDC}")
+        print(f"{bcolors.OKBLUE}Progress: {idx}/{total}{bcolors.ENDC}")
         self.countdown(self.on_time)
         self.clear()
 
@@ -90,11 +99,27 @@ class PushUp(BaseExercise):
     equipment = (None,)
     rep_time = 2.0
 
+class TPushUp(PushUp):
+    rep_time = 2.5
+
+class ChaturangaPushUp(PushUp):
+    pass
+
+class DiveBombPushUp(PushUp):
+    rep_time = 5.0
+
+
 class Crunch(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
     rep_time = 1.0
+
+class SitUp(Crunch):
+    rep_time = 1.5
+
+class StraightLegSitUp(SitUp):
+    pass
 
 class BicycleCrunch(Crunch):
     etype = 'cardio'
@@ -119,7 +144,7 @@ class Plank(BaseExercise):
 
 class Superman(BaseExercise):
     muscles = (ms.LowerBack,)
-    etype = 'cardio'
+    etype = 'strength'
     equipment = (None,)
     rep_time = 1.0
 
@@ -168,6 +193,9 @@ class SquatJump(BaseExercise):
     etype = 'cardio'
     equipment = (None,)
     rep_time = 1.75
+
+class SquatJump180(SquatJump):
+    pass
 
 class Dip(BaseExercise):
     muscles = (ms.Triceps, ms.Chest)
@@ -227,6 +255,12 @@ class LegLift(BaseExercise):
     equipment = (None,)
     rep_time = 2.0
 
+class FigureEightLegLift(LegLift):
+    muscles = (ms.Abdominals,)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = 8.0
+
 class ShoulderPress(BaseExercise):
     muscles = (ms.Shoulders,)
     etype = 'strength'
@@ -236,6 +270,46 @@ class ShoulderPress(BaseExercise):
 class SpiderPlank(Plank):
     rep_time = 1.0
 
+class StarPlank(Plank):
+    pass
+
+
+class ReverseCrunch(BaseExercise):
+    muscles = (ms.Abdominals,)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = 3.0
+
+class DeadBug(BaseExercise):
+    muscles = (ms.Abdominals,)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = 1.25
+
+class BirdDog(BaseExercise):
+    muscles = (ms.Abdominals,)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = 1.85
+
+class HollowBodyRock(BaseExercise):
+    muscles = (ms.Abdominals,)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = None
+
+class LSit(BaseExercise):
+    muscles = (ms.Abdominals,)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = None
+
+class BeastPoseHold(BaseExercise):
+    muscles = (ms.Abdominals, ms.Quadriceps, ms.Shoulders)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = None
+
 class ReversePlank(BaseExercise):
     muscles = (ms.Shoulders, ms.LowerBack)
     etype = 'strength'
@@ -243,11 +317,16 @@ class ReversePlank(BaseExercise):
     rep_time = None
 
 class MountainClimber(BaseExercise):
-    muscles = (ms.Abdominals, ms.Quadriceps)
+    muscles = (ms.Abdominals, ms.Quadriceps, ms.Shoulders)
     etype = 'cardio'
     equipment = (None,)
     rep_time = 0.5
 
+class MountainClimberTwist(BaseExercise):
+    muscles = (ms.Abdominals, ms.Quadriceps, ms.Shoulders)
+    etype = 'cardio'
+    equipment = (None,)
+    rep_time = 0.5
 class AlternateJack(BaseExercise):
     muscles = (ms.LowerBack, ms.Quadriceps, ms.Calves)
     etype = 'cardio'
@@ -270,6 +349,18 @@ class TuckJump(BaseExercise):
     equipment = (None,)
     rep_time = 1.0
 
+class RenegadePushUp(BaseExercise):
+    muscles = (ms.Chest, ms.Triceps, ms.Shoulders, ms.MiddleBack)
+    etype = 'strength'
+    equipment = ('dumbbell', 'kettlebell')
+    rep_time = 4.0
+
+class SpiderManPushUp(PushUp):
+    muscles = (ms.Chest, ms.Triceps, ms.Shoulders, ms.Abdominals)
+    rep_time = 3.25
+
+class StarCrunch(Crunch):
+    rep_time = 1.25
 class VUp(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
@@ -282,11 +373,17 @@ class StarJump(BaseExercise):
     equipment = (None,)
     rep_time = 3.0
 
+class ProneLegLift(BaseExercise):
+    muscles = (ms.LowerBack,)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = 2.25
+
 class SkaterJump(BaseExercise):
     muscles = (ms.Quadriceps, ms.Abductors)
     etype = 'cardio'
     equipment = (None,)
-    rep_time = 2.0
+    rep_time = 1.75
 
 class ToeTouch(BaseExercise):
     muscles = (ms.Abdominals,)
@@ -294,17 +391,47 @@ class ToeTouch(BaseExercise):
     equipment = (None,)
     rep_time = 0.5
 
+class BusDriver(BaseExercise):
+    muscles = (ms.Shoulders,)
+    etype = 'strength'
+    equipment = ('dumbbell',)
+    rep_time = None
 class Burpee(BaseExercise):
     muscles = (ms.Quadriceps, ms.Chest, ms.Shoulders, ms.Abdominals)
     etype = 'cardio'
     equipment = (None,)
+    rep_time = 3.0
+
+class LungeBurpee(Burpee):
+    rep_time = 3.75
+
+class YTWL(BaseExercise):
+    muscles = (ms.MiddleBack, ms.Shoulders)
+    etype = 'strength'
+    equipment = (None,)
+    rep_time = 1.5
+
+
+class SurferBurpee(Burpee):
+    pass
+
+class DoubleJumpBurpee(Burpee):
     rep_time = 4.0
 
 class Curl(BaseExercise):
     muscles = (ms.Biceps,)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
-    rep_time = 2.0
+    rep_time = 1.75
+
+class HammerCurl(Curl):
+    pass
+
+class ForearmCurl(Curl):
+    pass
+
+class CurlPulse(Curl):
+    rep_time = None
 
 class WoodChopper(BaseExercise):
     muscles = (ms.Abdominals, ms.Shoulders)
@@ -377,11 +504,28 @@ class GobletSquat(Squat):
     equipment = ('kettlebell', 'dumbbell')
     rep_time = 2.0
 
-class LateralRaises(BaseExercise):
+class LateralRaise(BaseExercise):
     muscles = (ms.Shoulders,)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
     rep_time = 2.0
+
+class FrontRaise(LateralRaise):
+    pass
+
+class LatPullDown(BaseExercise):
+    muscles = (ms.Lats,)
+    etype = 'strength'
+    equipment = ('band',)
+    rep_time = 1.25
+
+class ButterflyCrunches(Crunch):
+    pass
+
+class PushUpJackTap(PushUp):
+    muscles = (ms.Chest, ms.Triceps, ms.Shoulders, ms.Quadriceps)
+    etype = 'cardio'
+    rep_time = 2.5
 
 class ObliqueCrunches(BaseExercise):
     muscles = (ms.Abdominals,)
@@ -395,11 +539,18 @@ class BoatHold(BaseExercise):
     equipment = (None,)
     rep_time = None
 
+class FigureEightBoatHold(BoatHold):
+    equipment = ("dumbbell", "kettlebell")
+
+
 class SwitchLunge(Lunge):
     etype = 'cardio'
-    rep_time = 2.0
+    rep_time = 1.6
 
- 
+
+class SideLunge(Lunge):
+    pass
+
 class BandPullApart(BaseExercise):
     muscles = (ms.MiddleBack,)
     etype = 'strength'
@@ -412,13 +563,24 @@ class DonkeyKick(BaseExercise):
     equipment = (None,)
     rep_time = 3.0
 
-class TricepExtension(BaseExercise):
+class OverheadTricepExtension(BaseExercise):
     muscles = (ms.Triceps,)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
     rep_time = 2.0
 
-class InnerThighRaises(BaseExercise):
+
+class BentOverTricepExtension(BaseExercise):
+    muscles = (ms.Triceps,)
+    etype = 'strength'
+    equipment = ('band', 'kettlebell', 'dumbbell')
+    rep_time = 2.0
+
+class TricepExtensionPulse(OverheadTricepExtension):
+    rep_time = None
+
+
+class InnerThighRaise(BaseExercise):
     muscles = (ms.Adductors,)
     etype = 'strength'
     equipment = (None,)
