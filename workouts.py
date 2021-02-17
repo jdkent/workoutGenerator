@@ -2,7 +2,7 @@ import time
 import random
 import re
 
-from exercises import ALL_EXERCISES, ALL_EQUIPMENT, Rest
+from exercises import ALL_EXERCISES, ALL_EQUIPMENT, Rest, beep
 from muscles import ALL_MUSCLES
 
 
@@ -16,28 +16,52 @@ def opposite_exists(exercise):
 
 class BaseWorkout:
 
+    def filter_type(self, exercises, etypes=('cardio', 'strength')):
+        return [exercise for exercise in exercises if exercise.etype in etypes]
+
     def filter_equipment(self, exercises, equipment=ALL_EQUIPMENT):
         return [exercise for exercise in exercises if set(equipment).intersection(exercise.equipment)]
-    
     
     def filter_muscles(self, exercises, muscles):
         return [exercise for exercise in exercises if set(muscles).intersection(exercise.muscles)]
 
-    def display_workout(self, workout=None):
+    def display(self, workout=None):
+        total_time = 0
         for exercise in workout:
             name = PATTERN.sub(' ', exercise.__class__.__name__)
             if exercise.reps:
                 print(f"{exercise.reps} {name}")
             else:
                 print(name)
+            total_time += exercise.on_time
+        mins, secs = divmod(total_time, 60)
+        print(f"\nTotal Time: {mins}:{secs}")
 
-    def run_workout(self, workout=None):
+    def run(self, workout=None):
+        # start countdown
+        t = 3
+        while t:
+            mins, secs = divmod(t, 60) 
+            timer = '{:02d}:{:02d}'.format(mins, secs) 
+            print(timer, end="\r") 
+            time.sleep(1)
+            t -=1
+
+        # run workout
+        workout_len = len(workout)
         for idx, exercise in enumerate(workout):
-            if idx < len(workout) - 1:
+            if idx < workout_len - 1:
                 up_next = workout[idx + 1]
             else:
                 up_next = None
-            exercise.run(up_next=up_next)
+            exercise.run(up_next=up_next, idx=idx, total=workout_len)
+
+        # finisher
+        print("DONE!!!")
+        for _ in range(3):
+            beep(T=0.5)
+            time.sleep(0.3)
+
 
 class Tabata(BaseWorkout):
 
@@ -49,9 +73,17 @@ class Tabata(BaseWorkout):
         self.round_rest = round_rest
 
 
-    def init_workout(self, muscles=None, equipment=ALL_EQUIPMENT, alt=False, seed=None):
+    def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, alt=False, seed=None):
         random.seed(seed)
-        all_exercises = self.filter_equipment(ALL_EXERCISES.values(), equipment)
+        if exclude_exercises:
+            all_exercises = [exercise for ex_name, exercise in ALL_EXERCISES.items() if not re.match(exclude_exercises, ex_name)]
+        else:
+            all_exercises = list(ALL_EXERCISES.values())
+    
+        all_exercises = self.filter_equipment(all_exercises, equipment)
+
+        if etypes:
+            all_exercises = self.filter_type(all_exercises, etypes)
 
         if muscles:
             muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
@@ -70,6 +102,7 @@ class Tabata(BaseWorkout):
                 opposite_exercises = [
                     exercise for exercise in all_exercises if set(exercise.muscles).intersection(opposite_muscles)
                 ]
+                opposite_exercises = list(set(opposite_exercises) - set(half_exercises).union(exercises))
                 exercises.extend((exercise, random.choice(opposite_exercises)))
         else:
             exercises = random.sample(all_exercises, self.n_exercises)
@@ -77,8 +110,10 @@ class Tabata(BaseWorkout):
         for exercise in exercises:
             for round_ in range(self.rounds):
                 workout.append(exercise(self.on_time))
-                workout.append(Rest(self.off_time))
-            workout.append(Rest(self.round_rest))
+                if self.off_time > 0:
+                    workout.append(Rest(self.off_time))
+            if self.round_rest > 0:
+                workout.append(Rest(self.round_rest))
         
         self.workout = workout
 
@@ -95,9 +130,17 @@ class TimedWorkout(BaseWorkout):
         self.round_rest = round_rest
 
 
-    def init_workout(self, muscles=None, equipment=ALL_EQUIPMENT, alt=False, seed=None):
+    def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, alt=False, seed=None):
         random.seed(seed)
-        all_exercises = self.filter_equipment(ALL_EXERCISES.values(), equipment)
+        if exclude_exercises:
+            all_exercises = [exercise for ex_name, exercise in ALL_EXERCISES.items() if not re.match(exclude_exercises, ex_name)]
+        else:
+            all_exercises = list(ALL_EXERCISES.values())
+    
+        all_exercises = self.filter_equipment(all_exercises, equipment)
+
+        if etypes:
+            all_exercises = self.filter_type(all_exercises, etypes)
 
         if muscles:
             muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
@@ -116,6 +159,7 @@ class TimedWorkout(BaseWorkout):
                 opposite_exercises = [
                     exercise for exercise in all_exercises if set(exercise.muscles).intersection(opposite_muscles)
                 ]
+                opposite_exercises = list(set(opposite_exercises) - set(half_exercises).union(exercises))
                 exercises.extend((exercise, random.choice(opposite_exercises)))
         else:
             exercises = random.sample(all_exercises, self.n_exercises)
@@ -123,8 +167,10 @@ class TimedWorkout(BaseWorkout):
         for round_ in range(self.rounds):
             for exercise in exercises:
                 workout.append(exercise(self.on_time))
-                workout.append(Rest(self.off_time))
-            workout.append(Rest(self.round_rest))
+                if self.off_time > 0:
+                    workout.append(Rest(self.off_time))
+            if self.round_rest > 0:
+                workout.append(Rest(self.round_rest))
         
         self.workout = workout
 
@@ -138,10 +184,19 @@ class EXOX(BaseWorkout):
         self.rounds = rounds
         self.n_exercises = n_exercises
     
-    def init_workout(self, muscles=None, equipment=ALL_EQUIPMENT, seed=None):
+    def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
         random.seed(seed)
-        all_exercises = self.filter_equipment(ALL_EXERCISES.values(), equipment)
+        if exclude_exercises:
+            all_exercises = [exercise for ex_name, exercise in ALL_EXERCISES.items() if not re.match(exclude_exercises, ex_name)]
+        else:
+            all_exercises = list(ALL_EXERCISES.values())
+    
+        all_exercises = self.filter_equipment(all_exercises, equipment)
+
         all_exercises = [exercise for exercise in all_exercises if exercise.rep_time]
+        if etypes:
+            all_exercises = self.filter_type(all_exercises, etypes)
+
         if muscles:
             muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
             all_exercises = self.filter_muscles(all_exercises, muscles)
@@ -162,7 +217,7 @@ class EXOX(BaseWorkout):
 if __name__ == "__main__":             
     tabata = Tabata(on_time=5, off_time=1, round_rest=5, rounds=2)  
 
-    workout = tabata.init_workout(alt=False, equipment=(None,), muscles=("Chest", "Biceps"))
+    workout = tabata.init_workout(alt=False, equipment=(None,), etypes=('cardio',), muscles=("Chest", "Biceps"))
     tabata.display_workout(workout)
     time.sleep(10)
     tabata.run_workout(workout)
