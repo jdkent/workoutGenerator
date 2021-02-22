@@ -5,7 +5,7 @@ import re
 from exercises import ALL_EXERCISES, ALL_EQUIPMENT, Rest, beep
 from muscles import ALL_MUSCLES
 
-
+# match CamelCase words
 PATTERN = re.compile(r'(?<!^)(?=[A-Z])')
 
 def opposite_exists(exercise):
@@ -15,6 +15,14 @@ def opposite_exists(exercise):
     return False
 
 class BaseWorkout:
+
+    def filter_exercise(self, exclude_exercises):
+        if isinstance(exclude_exercises, str):
+            return [exercise for ex_name, exercise in ALL_EXERCISES.items() if not re.match(exclude_exercises, ex_name)]
+        elif isinstance(exclude_exercises, list):
+            return sorted(list(set(ALL_EXERCISES.values()) - set(exclude_exercises)), key=lambda x: x.__name__)
+        else:
+            raise ValueError("exclude_exercises must be regex or list of exercises")
 
     def filter_type(self, exercises, etypes=('cardio', 'strength')):
         return [exercise for exercise in exercises if exercise.etype in etypes]
@@ -76,7 +84,7 @@ class Tabata(BaseWorkout):
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, alt=False, seed=None):
         random.seed(seed)
         if exclude_exercises:
-            all_exercises = [exercise for ex_name, exercise in ALL_EXERCISES.items() if not re.match(exclude_exercises, ex_name)]
+            all_exercises = self.filter_exercise(exclude_exercises)
         else:
             all_exercises = list(ALL_EXERCISES.values())
     
@@ -119,6 +127,46 @@ class Tabata(BaseWorkout):
 
         return workout
 
+class DropSet(BaseWorkout):
+
+    def __init__(self, on_time=25, off_time=5, round_rest=15, n_exercises=5):
+        self.on_time = on_time
+        self.off_time = off_time
+        self.n_exercises = n_exercises
+        self.round_rest = round_rest
+    
+    def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
+        random.seed(seed)
+        if exclude_exercises:
+            all_exercises = self.filter_exercise(exclude_exercises)
+        else:
+            all_exercises = list(ALL_EXERCISES.values())
+    
+        all_exercises = self.filter_equipment(all_exercises, equipment)
+
+        if etypes:
+            all_exercises = self.filter_type(all_exercises, etypes)
+
+        if muscles:
+            muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
+            all_exercises = self.filter_muscles(all_exercises, muscles)
+
+        
+        exercises = random.sample(all_exercises, self.n_exercises)
+        workout = []
+        round_exercises = exercises.copy()
+        for round_ in range(self.n_exercises):
+            for exercise in round_exercises:
+                workout.append(exercise(self.on_time))
+                if self.off_time > 0:
+                    workout.append(Rest(self.off_time))
+            round_exercises.pop()
+            if self.round_rest > 0:
+                workout.append(Rest(self.round_rest))
+        
+        self.workout = workout
+
+        return workout
 
 class TimedWorkout(BaseWorkout):
 
@@ -133,7 +181,7 @@ class TimedWorkout(BaseWorkout):
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, alt=False, seed=None):
         random.seed(seed)
         if exclude_exercises:
-            all_exercises = [exercise for ex_name, exercise in ALL_EXERCISES.items() if not re.match(exclude_exercises, ex_name)]
+            all_exercises = self.filter_exercise(exclude_exercises)
         else:
             all_exercises = list(ALL_EXERCISES.values())
     
@@ -187,7 +235,7 @@ class EXOX(BaseWorkout):
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
         random.seed(seed)
         if exclude_exercises:
-            all_exercises = [exercise for ex_name, exercise in ALL_EXERCISES.items() if not re.match(exclude_exercises, ex_name)]
+            all_exercises = self.filter_exercise(exclude_exercises)
         else:
             all_exercises = list(ALL_EXERCISES.values())
     
