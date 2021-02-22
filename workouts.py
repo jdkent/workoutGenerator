@@ -62,7 +62,7 @@ class BaseWorkout:
                 up_next = workout[idx + 1]
             else:
                 up_next = None
-            exercise.run(up_next=up_next, idx=idx, total=workout_len)
+            exercise.run(up_next=up_next, idx=idx+1, total=workout_len)
 
         # finisher
         print("DONE!!!")
@@ -261,7 +261,49 @@ class EXOX(BaseWorkout):
 
         return workout
 
+class TotalRandom(BaseWorkout):
+
+    def __init__(self, on_range=(20, 60), off_range=(5, 20), on_prob=0.75, n_exercises=20):
+        self.on_range = on_range
+        self.off_range = off_range
+        self.on_prob = on_prob
+        self.n_exercises = n_exercises
     
+    def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
+        random.seed(seed)
+        if exclude_exercises:
+            all_exercises = self.filter_exercise(exclude_exercises)
+        else:
+            all_exercises = list(ALL_EXERCISES.values())
+    
+        all_exercises = self.filter_equipment(all_exercises, equipment)
+
+        all_exercises = [exercise for exercise in all_exercises if exercise.rep_time]
+        if etypes:
+            all_exercises = self.filter_type(all_exercises, etypes)
+
+        if muscles:
+            muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
+            all_exercises = self.filter_muscles(all_exercises, muscles)
+
+        exercises = random.sample(all_exercises, self.n_exercises)
+        workout = []
+        while exercises:
+            if len(exercises) == self.n_exercises:
+                on_time = random.randrange(self.on_range[0], self.on_range[1], 5)
+                workout.append(exercises.pop()(on_time))
+            elif random.choices([True, False], weights=[self.on_prob, 1 - self.on_prob])[0]:
+                on_time = random.randrange(self.on_range[0], self.on_range[1] + 1, 5)
+                workout.append(exercises.pop()(on_time))
+            else:
+                off_time = random.randrange(self.off_range[0], self.off_range[1] + 1, 5)
+                if off_time:
+                    workout.append(Rest(off_time))
+        
+        self.workout = workout
+
+        return workout
+
 if __name__ == "__main__":             
     tabata = Tabata(on_time=5, off_time=1, round_rest=5, rounds=2)  
 
