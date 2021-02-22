@@ -247,6 +247,7 @@ class CalfRaise(BaseExercise):
     rep_time = 1.25
 
 class DownDogPushUp(PushUp):
+    muscles = (ms.Shoulders,)
     rep_time = 2.5
 
 class LegLift(BaseExercise):
@@ -597,17 +598,38 @@ class UprightRow(BaseExercise):
     equipment = ('band', 'kettlebell', 'dumbbell')
     rep_time = 1.5
 
+
+class SingleArmUprightRow(UprightRow):
+    pass
 class BentOverRow(BaseExercise):
     muscles = (ms.MiddleBack,)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
     rep_time = 1.5
 
+
+class BentOverY(BackFlies):
+    muscles = (ms.MiddleBack, ms.Traps)
+
+
+class DumbbellPullover(BaseExercise):
+    muscles = (ms.Lats, ms.Shoulders)
+    etype = 'strength'
+    equipment = ('dumbbell', 'kettlebell')
+    rep_time = 1.5
+
+
 class RussianTwist(BaseExercise):
     muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
     rep_time = 0.75
+
+class KettleBellSwing(BaseExercise):
+    muscles = (ms.LowerBack, ms.Hamstrings, ms.Shoulders)
+    etype = 'cardio'
+    equipment = ('dumbbell', 'kettlebell')
+    rep_time = 1.35
 
 class TeaPot(BaseExercise):
     muscles = (ms.Abdominals,)
