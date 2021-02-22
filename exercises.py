@@ -152,7 +152,7 @@ class DeadLift(BaseExercise):
     muscles = (ms.LowerBack, ms.Hamstrings)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
-    rep_time = 3.0
+    rep_time = 2.8
 
 class Lunge(BaseExercise):
     muscles = (ms.Quadriceps,)
@@ -371,7 +371,7 @@ class StarJump(BaseExercise):
     muscles = (ms.Quadriceps,)
     etype = 'cardio'
     equipment = (None,)
-    rep_time = 3.0
+    rep_time = 2.50
 
 class ProneLegLift(BaseExercise):
     muscles = (ms.LowerBack,)
@@ -416,7 +416,7 @@ class SurferBurpee(Burpee):
     pass
 
 class DoubleJumpBurpee(Burpee):
-    rep_time = 4.0
+    rep_time = 3.75
 
 class Curl(BaseExercise):
     muscles = (ms.Biceps,)
@@ -498,7 +498,7 @@ class SquatPress(Squat):
     equipment = ('band', 'kettlebell', 'dumbbell')
 
 class HalfBurpee(Burpee):
-    rep_time = 4.0
+    rep_time = 2.5
 
 class GobletSquat(Squat):
     equipment = ('kettlebell', 'dumbbell')
@@ -545,7 +545,7 @@ class FigureEightBoatHold(BoatHold):
 
 class SwitchLunge(Lunge):
     etype = 'cardio'
-    rep_time = 1.6
+    rep_time = 1.5
 
 
 class SideLunge(Lunge):
