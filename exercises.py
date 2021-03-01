@@ -97,7 +97,7 @@ class PushUp(BaseExercise):
     muscles = (ms.Chest, ms.Triceps, ms.Shoulders)
     etype = 'strength'
     equipment = (None,)
-    rep_time = 2.0
+    rep_time = 2.25
 
 class TPushUp(PushUp):
     rep_time = 3.0
@@ -137,11 +137,14 @@ class ShoulderTap(BaseExercise):
     rep_time = 0.75
 
 class Plank(BaseExercise):
-    muscles = (ms.Abdominals, ms.Shoulders)
+    muscles = (ms.Abdominals,)
     etype = 'strength'
     equipment = (None,)
     rep_time = None
 
+
+class PlankWithHipRotation(Plank):
+    rep_time = 1.0
 class Superman(BaseExercise):
     muscles = (ms.LowerBack,)
     etype = 'strength'
@@ -471,13 +474,13 @@ class ChestFly(BaseExercise):
     muscles = (ms.Chest,)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
-    rep_time = 2.0
+    rep_time = 2.25
 
 class BackFly(BaseExercise):
     muscles = (ms.MiddleBack,)
     etype = 'strength'
     equipment = ('band', 'kettlebell', 'dumbbell')
-    rep_time = 1.9
+    rep_time = 2.25
 
 class FlutterKick(BaseExercise):
     muscles = (ms.Abdominals,)
@@ -536,7 +539,7 @@ class ButterflyCrunch(Crunch):
 class PushUpJackTap(PushUp):
     muscles = (ms.Chest, ms.Triceps, ms.Shoulders, ms.Quadriceps)
     etype = 'cardio'
-    rep_time = 2.5
+    rep_time = 2.75
 
 class ObliqueCrunch(BaseExercise):
     muscles = (ms.Abdominals,)
@@ -677,6 +680,17 @@ class DeclinePushUp(PushUp):
 
 class SumoDeadLift(DeadLift):
     pass
+
+class Windmill(BaseExercise):
+    muscles = (ms.Abdominals,)
+    etype = 'strength'
+    equipment = ('dumbbell', 'kettlebell')
+    rep_time = 3.0
+class GoodMorning(BaseExercise):
+    muscles = (ms.LowerBack, ms.Hamstrings)
+    etype = 'strength'
+    equipment = ('dumbbell', 'kettlebell')
+    rep_time = 2.25
 
 class Wiggle(BaseExercise):
     muscles = (ms.Abdominals,)
