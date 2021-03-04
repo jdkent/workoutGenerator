@@ -1,20 +1,16 @@
-import time
 import random
-import re
 
-from exercises import ALL_EXERCISES, ALL_EQUIPMENT, Rest, beep
-from muscles import ALL_MUSCLES
+from .exercises import ALL_EXERCISES, ALL_EQUIPMENT, Rest
+from .muscles import ALL_MUSCLES
 
-# match CamelCase words
-PATTERN = re.compile(r'(?<!^)(?=[A-Z])')
-
-def opposite_exists(exercise):
-    for muscle in exercise.muscles:
-        if muscle.opposite:
-            return True 
-    return False
 
 class BaseWorkout:
+
+    def opposite_exists(self, exercise):
+        for muscle in exercise.muscles:
+            if muscle.opposite:
+                return True 
+        return False
 
     def filter_exercise(self, exclude_exercises):
         if isinstance(exclude_exercises, str):
@@ -32,57 +28,8 @@ class BaseWorkout:
     
     def filter_muscles(self, exercises, muscles):
         return [exercise for exercise in exercises if set(muscles).intersection(exercise.muscles)]
-
-    def display(self, workout=None):
-        total_time = 0
-        for exercise in workout:
-            name = PATTERN.sub(' ', exercise.__class__.__name__)
-            if exercise.reps:
-                print(f"{exercise.reps} {name}")
-            else:
-                print(name)
-            total_time += exercise.on_time
-        mins, secs = divmod(total_time, 60)
-        print(f"\nTotal Time: {mins}:{secs}")
-
-    def run(self, workout=None):
-        # start countdown
-        t = 3
-        while t:
-            mins, secs = divmod(t, 60) 
-            timer = '{:02d}:{:02d}'.format(mins, secs) 
-            print(timer, end="\r") 
-            time.sleep(1)
-            t -=1
-
-        # run workout
-        workout_len = len(workout)
-        for idx, exercise in enumerate(workout):
-            if idx < workout_len - 1:
-                up_next = workout[idx + 1]
-            else:
-                up_next = None
-            exercise.run(up_next=up_next, idx=idx+1, total=workout_len)
-
-        # finisher
-        print("DONE!!!")
-        for _ in range(3):
-            beep(T=0.5)
-            time.sleep(0.3)
-
-
-class Tabata(BaseWorkout):
-
-    def __init__(self, on_time=25, off_time=5, round_rest=15, rounds=5, n_exercises=4):
-        self.on_time = on_time
-        self.off_time = off_time
-        self.n_exercises = n_exercises
-        self.rounds = rounds
-        self.round_rest = round_rest
-
-
-    def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, alt=False, seed=None):
-        random.seed(seed)
+    
+    def filter(self, muscles, equipment, exclude_exercises, etypes):
         if exclude_exercises:
             all_exercises = self.filter_exercise(exclude_exercises)
         else:
@@ -97,8 +44,23 @@ class Tabata(BaseWorkout):
             muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
             all_exercises = self.filter_muscles(all_exercises, muscles)
 
+        return all_exercises
+
+class Tabata(BaseWorkout):
+
+    def __init__(self, on_time=25, off_time=5, round_rest=15, rounds=5, n_exercises=4):
+        self.on_time = on_time
+        self.off_time = off_time
+        self.n_exercises = n_exercises
+        self.rounds = rounds
+        self.round_rest = round_rest
+
+
+    def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, alt=False, seed=None):
+        random.seed(seed)
+        all_exercises = self.filter(muscles, equipment, exclude_exercises, etypes)
         if alt:
-            exercises_with_opposites = [exercise for exercise in all_exercises if opposite_exists(exercise)]
+            exercises_with_opposites = [exercise for exercise in all_exercises if self.opposite_exists(exercise)]
             half_exercises = random.sample(exercises_with_opposites, self.n_exercises // 2)
             exercises = []
             for exercise in half_exercises:
@@ -137,21 +99,7 @@ class DropSet(BaseWorkout):
     
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
         random.seed(seed)
-        if exclude_exercises:
-            all_exercises = self.filter_exercise(exclude_exercises)
-        else:
-            all_exercises = list(ALL_EXERCISES.values())
-    
-        all_exercises = self.filter_equipment(all_exercises, equipment)
-
-        if etypes:
-            all_exercises = self.filter_type(all_exercises, etypes)
-
-        if muscles:
-            muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
-            all_exercises = self.filter_muscles(all_exercises, muscles)
-
-        
+        all_exercises = self.filter(muscles, equipment, exclude_exercises, etypes)
         exercises = random.sample(all_exercises, self.n_exercises)
         workout = []
         round_exercises = exercises.copy()
@@ -177,25 +125,11 @@ class TimedWorkout(BaseWorkout):
         self.rounds = rounds
         self.round_rest = round_rest
 
-
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, alt=False, seed=None):
         random.seed(seed)
-        if exclude_exercises:
-            all_exercises = self.filter_exercise(exclude_exercises)
-        else:
-            all_exercises = list(ALL_EXERCISES.values())
-    
-        all_exercises = self.filter_equipment(all_exercises, equipment)
-
-        if etypes:
-            all_exercises = self.filter_type(all_exercises, etypes)
-
-        if muscles:
-            muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
-            all_exercises = self.filter_muscles(all_exercises, muscles)
-
+        all_exercises = self.filter(muscles, equipment, exclude_exercises, etypes)
         if alt:
-            exercises_with_opposites = [exercise for exercise in all_exercises if opposite_exists(exercise)]
+            exercises_with_opposites = [exercise for exercise in all_exercises if self.opposite_exists(exercise)]
             half_exercises = random.sample(exercises_with_opposites, self.n_exercises // 2)
             exercises = []
             for exercise in half_exercises:
@@ -234,21 +168,7 @@ class EXOX(BaseWorkout):
     
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
         random.seed(seed)
-        if exclude_exercises:
-            all_exercises = self.filter_exercise(exclude_exercises)
-        else:
-            all_exercises = list(ALL_EXERCISES.values())
-    
-        all_exercises = self.filter_equipment(all_exercises, equipment)
-
-        all_exercises = [exercise for exercise in all_exercises if exercise.rep_time]
-        if etypes:
-            all_exercises = self.filter_type(all_exercises, etypes)
-
-        if muscles:
-            muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
-            all_exercises = self.filter_muscles(all_exercises, muscles)
-
+        all_exercises = self.filter(muscles, equipment, exclude_exercises, etypes)
         exercises = random.sample(all_exercises, self.n_exercises)
         workout = []
         for exercise in exercises:
@@ -271,21 +191,7 @@ class TotalRandom(BaseWorkout):
     
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
         random.seed(seed)
-        if exclude_exercises:
-            all_exercises = self.filter_exercise(exclude_exercises)
-        else:
-            all_exercises = list(ALL_EXERCISES.values())
-    
-        all_exercises = self.filter_equipment(all_exercises, equipment)
-
-        all_exercises = [exercise for exercise in all_exercises if exercise.rep_time]
-        if etypes:
-            all_exercises = self.filter_type(all_exercises, etypes)
-
-        if muscles:
-            muscles = [ALL_MUSCLES[muscle] for muscle in muscles]
-            all_exercises = self.filter_muscles(all_exercises, muscles)
-
+        all_exercises = self.filter(muscles, equipment, exclude_exercises, etypes)
         exercises = random.sample(all_exercises, self.n_exercises)
         workout = []
         while exercises:
@@ -303,12 +209,3 @@ class TotalRandom(BaseWorkout):
         self.workout = workout
 
         return workout
-
-if __name__ == "__main__":             
-    tabata = Tabata(on_time=5, off_time=1, round_rest=5, rounds=2)  
-
-    workout = tabata.init_workout(alt=False, equipment=(None,), etypes=('cardio',), muscles=("Chest", "Biceps"))
-    tabata.display_workout(workout)
-    time.sleep(10)
-    tabata.run_workout(workout)
-    print("done!")        
