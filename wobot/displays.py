@@ -91,8 +91,11 @@ class ShellDisplay(BaseDisplay):
 
     def _run_exercise(self, exercise, up_next=None, idx=None, total=None):
         self._clear()
-        name = str(exercise)
-        print(f"\n\n\n{bcolors.OKGREEN}{bcolors.BOLD}{bcolors.UNDERLINE}Start: {name}{bcolors.ENDC}\n\n\n")
+        if exercise.reps:
+            name = repr(exercise)
+        else:
+            name = str(exercise)
+        print(f"\n\n\n{bcolors.OKGREEN}{bcolors.BOLD}{bcolors.UNDERLINE}Now: {name}{bcolors.ENDC}\n\n\n")
 
         if up_next:
             up_next_name = repr(up_next)
