@@ -5,6 +5,7 @@ from .muscles import ALL_MUSCLES
 
 
 class BaseWorkout:
+    """Generator for a list of Exercises."""
 
     def opposite_exists(self, exercise):
         for muscle in exercise.muscles:
