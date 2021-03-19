@@ -1,7 +1,7 @@
 from wobot.workouts import TimedWorkout, DropSet, EXOX, Tabata, Rest
 from wobot.displays import ShellDisplay
 
-SEED = 85467
+SEED = 10
 
 def variety_hour(muscle_set1, muscle_set2, seed=None):
     tabata = Tabata(on_time=20, off_time=10, round_rest=10)
@@ -30,7 +30,7 @@ upper_body = ("Chest", "MiddleBack", "Lats", "Traps")
 lower_body = ('Quadriceps', 'Hamstrings', 'Glutes', 'Calves', "LowerBack", "Abductors", "Adductors")
 abs_ = ("Abdominals", "LowerBack")
 
-workout = variety_hour(abs_, lower_body, SEED)
+workout = variety_hour(arms + upper_body, abs_, SEED)
 
 disp = ShellDisplay()
 

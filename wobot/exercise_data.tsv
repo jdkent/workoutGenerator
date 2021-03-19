@@ -28,7 +28,7 @@ CurtsyLunges	['Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	3.25
 DeadBugs	['Abdominals']	strength	[None]	1.25
 DeadLifts	['LowerBack', 'Hamstrings']	strength	['band', 'kettlebell', 'dumbbell']	2.8
 DeclinePushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
-Dips	['Triceps', 'Chest']	strength	[None]	1.8
+Dips	['Triceps', 'Chest']	strength	[None]	2.25
 DiveBombPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	5.0
 DonkeyKicks	['Glutes']	strength	[None]	0.75
 DonkeyKneeToElbows	['Glutes']	strength	[None]	2.5
@@ -98,13 +98,13 @@ SpiderPlanks	['Abdominals']	strength	[None]	1.75
 SquatHold	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
 SquatJump180s	['Quadriceps']	cardio	[None]	1.75
 SquatJumps	['Quadriceps']	cardio	[None]	1.75
-SquatPresses	['Quadriceps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.5
+SquatPresses	['Quadriceps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.75
 SquatPulses	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
 Squats	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	1.5
 StarCrunches	['Abdominals']	strength	[None]	1.25
 StarJumps	['Quadriceps']	cardio	[None]	2.5
 StarPlanks	['Abdominals']	strength	[None]	
-StraightLegSitUps	['Abdominals']	strength	[None]	1.75
+StraightLegSitUps	['Abdominals']	strength	[None]	2.0
 SumoDeadLifts	['LowerBack', 'Hamstrings']	strength	['band', 'kettlebell', 'dumbbell']	2.8
 SumoSquats	['Quadriceps', 'Adductors']	strength	[None, 'kettlebell', 'dumbbell']	1.8
 Supermans	['LowerBack']	strength	[None]	1.75

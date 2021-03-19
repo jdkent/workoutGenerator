@@ -2,6 +2,30 @@ import random
 
 from .exercises import ALL_EXERCISES, ALL_EQUIPMENT, Rest
 from .muscles import ALL_MUSCLES
+import hashlib
+
+
+def str_to_int(s):
+    return int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16) % 10**8
+
+
+names = [
+    "James",
+    "Balyssa",
+    "Samon",
+    "Shris Ti",
+    "Kiani",
+    "Chandra",
+    "Chris",
+    "Ianto",
+    "Marisol",
+    "Yujia",
+    "Ka Leigh"
+]
+
+NAME_HASHES = {
+    n: str_to_int(n) for n in names
+}
 
 
 class BaseWorkout:
@@ -170,6 +194,7 @@ class EXOX(BaseWorkout):
     def init(self, muscles=None, equipment=ALL_EQUIPMENT, exclude_exercises=None, etypes=None, seed=None):
         random.seed(seed)
         all_exercises = self.filter(muscles, equipment, exclude_exercises, etypes)
+        all_exercises = [ex for ex in all_exercises if ex.rep_time]
         exercises = random.sample(all_exercises, self.n_exercises)
         workout = []
         for exercise in exercises:

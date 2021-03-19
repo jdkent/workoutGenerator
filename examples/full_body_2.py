@@ -3,7 +3,7 @@ from wobot.displays import ShellDisplay
 
 ab_burn = TimedWorkout(on_time=30, off_time=0, round_rest=15, rounds=1, n_exercises=6)
 tabata = Tabata(on_time=20, off_time=10, round_rest=10, rounds=4, n_exercises=4)
-SEED = 86400
+SEED = 4120530644
 
 lower_body = ('Quadriceps', 'Hamstrings', 'Glutes', 'Calves', "LowerBack", "Abductors", "Adductors")
 upper_body = ("Chest", "MiddleBack", "Lats", "Traps", 'Shoulders')

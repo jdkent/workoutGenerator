@@ -1,8 +1,8 @@
 from wobot.workouts import TimedWorkout, DropSet, EXOX, Rest
 from wobot.displays import ShellDisplay
 
-SEED = 611
-drop_set = DropSet(on_time=20, off_time=0, round_rest=20, n_exercises=4)
+SEED = 413
+drop_set = DropSet(on_time=30, off_time=0, round_rest=10, n_exercises=4)
 emom = EXOX(difficulty=0.75, rounds=3)
 exclude = []
 # legs

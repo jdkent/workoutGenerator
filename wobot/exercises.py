@@ -48,7 +48,7 @@ def generate_exercises(exercises_file):
                     "muscles": muscles,
                     "etype": row.etype,
                     "equipment": tuple(row.equipment),
-                    "rep_time": row.rep_time,
+                    "rep_time": None if pd.isna(row["rep_time"]) else row.rep_time,
                 }
         )
     
