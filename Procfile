@@ -1,1 +1,1 @@
-web: gunicorn wobot:wobot
+web: gunicorn "wobot:create_app()"
