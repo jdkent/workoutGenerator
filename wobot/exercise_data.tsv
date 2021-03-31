@@ -75,7 +75,7 @@ PlankJacks	['Abdominals', 'Quadriceps', 'Shoulders']	cardio	[None]	1.0
 PlankWithHipRotations	['Abdominals']	strength	[None]	1.0
 Planks	['Abdominals']	strength	[None]	
 ProneLegLifts	['LowerBack']	strength	[None]	2.25
-PushUpJackTaps	['Chest', 'Triceps', 'Shoulders', 'Quadriceps']	cardio	[None]	2.75
+PushUpJackTaps	['Chest', 'Triceps', 'Shoulders', 'Quadriceps']	cardio	[None]	4.25
 PushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
 RenegadePushUps	['Chest', 'Triceps', 'Shoulders', 'MiddleBack']	strength	['dumbbell', 'kettlebell']	4.0
 ReverseCrunches	['Abdominals']	strength	[None]	3.0
@@ -125,3 +125,5 @@ Windmills	['Abdominals']	strength	['dumbbell', 'kettlebell']	3.0
 WindshieldWipers	['Abdominals']	strength	[None]	2.75
 WoodChoppers	['Abdominals', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.25
 YTWLs	['MiddleBack', 'Shoulders']	strength	[None]	4.0
+PrisonerSquats	['Quadriceps']	strength	[None]	4.0
+LungeCurls	['Quadriceps']	strength	['kettlebell', 'dumbbell']	4.0

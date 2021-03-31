@@ -6,23 +6,23 @@ import numpy as np
 import simpleaudio as sa
 import numpy as np
 
+
 class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+    HEADER = "\033[95m"
+    OKBLUE = "\033[94m"
+    OKCYAN = "\033[96m"
+    OKGREEN = "\033[92m"
+    WARNING = "\033[93m"
+    FAIL = "\033[91m"
+    ENDC = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
 
 
 class BaseDisplay(metaclass=ABCMeta):
-
     def __init__(self):
         pass
-    
+
     @abstractmethod
     def preview(self, workout):
         """Preview the workout."""
@@ -35,19 +35,18 @@ class BaseDisplay(metaclass=ABCMeta):
 
 
 class ShellDisplay(BaseDisplay):
-
     def __init__(self):
         pass
 
-    def _clear(self): 
-        # for windows 
-        if name == 'nt': 
-            _ = system('cls') 
-    
-        # for mac and linux(here, os.name is 'posix') 
-        else: 
-            _ = system('clear')
-    
+    def _clear(self):
+        # for windows
+        if name == "nt":
+            _ = system("cls")
+
+        # for mac and linux(here, os.name is 'posix')
+        else:
+            _ = system("clear")
+
     def _beep(self, freq=880, T=1.0):
         sample_rate = 44100
         t = np.linspace(0, T, int(T * sample_rate), False)
@@ -61,14 +60,14 @@ class ShellDisplay(BaseDisplay):
         play_obj = sa.play_buffer(note, 1, 2, sample_rate)
 
         play_obj.wait_done()
-    
+
     def _countdown(self, t):
         first_t = t
         while t:
             try:
-                mins, secs = divmod(t, 60) 
-                timer = '{:02d}:{:02d}'.format(mins, secs) 
-                print(timer, end="\r") 
+                mins, secs = divmod(t, 60)
+                timer = "{:02d}:{:02d}".format(mins, secs)
+                print(timer, end="\r")
                 if first_t == t:
                     self._beep()
                 else:
@@ -76,7 +75,7 @@ class ShellDisplay(BaseDisplay):
                 t -= 1
             except KeyboardInterrupt:
                 end = input("Paused, type 'quit' to end program")
-                if end == 'quit':
+                if end == "quit":
                     raise KeyboardInterrupt
                 else:
                     continue
@@ -95,7 +94,9 @@ class ShellDisplay(BaseDisplay):
             name = repr(exercise)
         else:
             name = str(exercise)
-        print(f"\n\n\n{bcolors.OKGREEN}{bcolors.BOLD}{bcolors.UNDERLINE}Now: {name}{bcolors.ENDC}\n\n\n")
+        print(
+            f"\n\n\n{bcolors.OKGREEN}{bcolors.BOLD}{bcolors.UNDERLINE}Now: {name}{bcolors.ENDC}\n\n\n"
+        )
 
         if up_next:
             up_next_name = repr(up_next)
@@ -104,16 +105,16 @@ class ShellDisplay(BaseDisplay):
         print(f"{bcolors.OKBLUE}Progress: {idx}/{total}{bcolors.ENDC}")
         self._countdown(exercise.on_time)
         self._clear()
-    
+
     def display(self, workout):
         # start countdown
         t = 3
         while t:
-            mins, secs = divmod(t, 60) 
-            timer = '{:02d}:{:02d}'.format(mins, secs) 
-            print(timer, end="\r") 
+            mins, secs = divmod(t, 60)
+            timer = "{:02d}:{:02d}".format(mins, secs)
+            print(timer, end="\r")
             time.sleep(1)
-            t -=1
+            t -= 1
 
         # run workout
         workout_len = len(workout)
@@ -122,7 +123,9 @@ class ShellDisplay(BaseDisplay):
                 up_next = workout[idx + 1]
             else:
                 up_next = None
-            self._run_exercise(exercise, up_next=up_next, idx=idx+1, total=workout_len)
+            self._run_exercise(
+                exercise, up_next=up_next, idx=idx + 1, total=workout_len
+            )
 
         # finisher
         print("DONE!!!")
