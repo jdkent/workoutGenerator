@@ -39,10 +39,7 @@ bp = Blueprint('workout', __name__)
 
 @bp.route('/')
 def index():
-    tabata = Tabata()
-    wout = tabata.init()
-    total_time = [sum([ex.on_time for ex in wout])]
-    return render_template('index.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+    return render_template('index.html')
 
 
 @bp.route('/weighty-wednesday', defaults={'seed': None})
@@ -50,7 +47,7 @@ def index():
 def weighty(seed):
     wout = weighty_wednesday(seed)
     total_time = [sum([ex.on_time for ex in wout])]
-    return render_template('index.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
 @bp.route('/thirty-thursday', defaults={'seed': None})
@@ -60,7 +57,7 @@ def weighty(seed):
 def thirty(seed):
     wout = thirty_thursday(seed)
     total_time = [sum([ex.on_time for ex in wout])]
-    return render_template('index.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
 def weighty_wednesday(seed=None):

@@ -1,74 +1,14 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Hey look a workout!{% endblock %}</h1>
+  <h1>{% block title %}Check out these workouts!{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  {% for exercise in exercises %}
-    <header>
-    <div>
-        <h1>{{ repr(exercise) }}</h1>
-    </div>
-    </header>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
-  <h1>{{ total_time }}</h1>
-  <link rel="stylesheet" href="{{ url_for('static', filename='/css/app-bab664bd2a.css') }}">
-  <section class="section-default">
-    <div class="container timer-info section-padded-bottom">
-      <div class="row">
-        <div class="col-md-10">
-            <div class="timer-container">
-                <div class="timer">
-                    <div class="timer-main">00:00</div>
-                    <div class="timer-accessory timer-elapsed"><h3>Elapsed</h3><p>00:00</p></div>
-                    <div class="timer-accessory timer-interval-count"><h3>Intervals</h3><p>0/0</p></div>
-                    <div class="timer-accessory timer-remaining"><h3>Remaining</h3><p>0:00</p></div>
-                    <div class="timer-intervals">
-                        <ul>
-                        </ul>
-                    </div>
-                    <div class="timer-reset">
-                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                    </div>
-                    <div class="timer-start-toggle">
-                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<ul>
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.weighty" ) }}';">Weighty Wednesday</button></li>
 
-    <script src="https://www.intervaltimer.com/build/js/core-093ab4e59f.js"></script>     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
-    <script>
-        
-        var def = {
-            "via":"web",
-            "name":"Custom Timer",
-            "type":0,
-            "numberOfSets":1,
-            "soundScheme":8,
-            "intervals":[
-            {% for exercise in exercises -%}
-                {
-                    "name":"{{ str(exercise) }}",
-                    "duration":{{ exercise.on_time }},
-                    {% if str(exercise) == "Rest" -%}
-                    "color":1,
-                    {% else -%}
-                    "color":4,
-                    {% endif -%}
-                    "$$hashKey":"object:3"
-                },
-            {% endfor %}
-            ]
-        };
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.thirty" ) }}';">Thirty Thursday</button></li>
+</ul>
 
-    </script>
-    <script src="{{ url_for('static', filename='js/timer-cc5b3881ae.js') }}"></script>
 {% endblock %}
