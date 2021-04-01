@@ -1,5 +1,5 @@
 from flask import Flask
-from .workouts import TimedWorkout, Tabata, NAME_HASHES, Rest
+from .workouts import TimedWorkout, Tabata, TotalRandom, NAME_HASHES, Rest
 from .exercises import ALL_EQUIPMENT
 
 def create_app(test_config=None):
@@ -53,6 +53,16 @@ def weighty(seed):
     return render_template('index.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
+@bp.route('/thirty-thursday', defaults={'seed': None})
+@bp.route('/thursday-thirty', defaults={'seed': None})
+@bp.route('/thirty-thursday/<int:seed>')
+@bp.route('/thursday-thirty/<int:seed>')
+def thirty(seed):
+    wout = thirty_thursday(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('index.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
+
 def weighty_wednesday(seed=None):
     SEED = seed
     only_equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
@@ -78,3 +88,13 @@ def weighty_wednesday(seed=None):
     exclude.extend(list(set([ex.__class__ for ex in cardio_wout])))
 
     return lower_body_wout + [Rest(15)] + upper_body_wout + [Rest(15)] + arm_wout + [Rest(15)] + cardio_wout
+
+
+def thirty_thursday(seed=None):
+    SEED = seed
+
+    total_random = TotalRandom(n_exercises=35)
+
+    random_workout = total_random.init(equipment=(None,), seed=SEED)
+
+    return random_workout
