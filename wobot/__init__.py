@@ -1,5 +1,5 @@
 from flask import Flask
-from .workouts import TimedWorkout, Tabata, TotalRandom, NAME_HASHES, Rest
+from .workouts import TimedWorkout, Tabata, TimePyramid, TotalRandom, NAME_HASHES, Rest
 from .exercises import ALL_EQUIPMENT
 
 def create_app(test_config=None):
@@ -60,6 +60,13 @@ def thirty(seed):
     return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
+@bp.route('/pyramid', defaults={'seed': None})
+@bp.route('/pyramid/<int:seed>')
+def pyramid(seed):
+    wout = pyramid_workout(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
 def weighty_wednesday(seed=None):
     SEED = seed
     only_equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
@@ -95,3 +102,34 @@ def thirty_thursday(seed=None):
     random_workout = total_random.init(equipment=(None,), seed=SEED)
 
     return random_workout
+
+
+def pyramid_workout(seed=None):
+    SEED = seed
+    lower_body = ('Quadriceps', 'Hamstrings', 'Glutes', 'Calves', "LowerBack", "Abductors", "Adductors")
+    upper_body = ("Chest", "MiddleBack", "Lats", "Traps", 'Shoulders', 'Biceps', 'Triceps', "Forearms")
+    core = ("Abdominals",)
+    exclude = []
+
+    base_pyramid = TimePyramid()
+
+    lower_pyramid1 = base_pyramid.init(muscles=lower_body, seed=SEED)
+    exclude.extend(list(set([ex.__class__ for ex in lower_pyramid1])))
+
+    upper_pyramid1 = base_pyramid.init(muscles=upper_body, exclude_exercises=exclude, seed=SEED)
+    exclude.extend(list(set([ex.__class__ for ex in upper_pyramid1])))
+
+    core_pyramid1 = base_pyramid.init(muscles=core, exclude_exercises=exclude, equipment=(None,), seed=SEED)
+    exclude.extend(list(set([ex.__class__ for ex in core_pyramid1])))
+
+    lower_pyramid2 = base_pyramid.init(muscles=lower_body, exclude_exercises=exclude, seed=SEED)
+    exclude.extend(list(set([ex.__class__ for ex in lower_pyramid2])))
+
+    upper_pyramid2 = base_pyramid.init(muscles=upper_body, exclude_exercises=exclude, seed=SEED)
+    exclude.extend(list(set([ex.__class__ for ex in upper_pyramid2])))
+
+    core_pyramid2 = base_pyramid.init(muscles=core, exclude_exercises=exclude, equipment=(None,), seed=SEED)
+    exclude.extend(list(set([ex.__class__ for ex in core_pyramid2])))
+
+
+    return lower_pyramid1 + [Rest(20)] + upper_pyramid1 + [Rest(20)] + core_pyramid1 + [Rest(20)] + lower_pyramid2 + [Rest(20)] + upper_pyramid2 + [Rest(20)] + core_pyramid2
