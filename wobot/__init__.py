@@ -41,6 +41,10 @@ bp = Blueprint('workout', __name__)
 def index():
     return render_template('index.html')
 
+@bp.route('/create')
+def create_workout():
+    return render_template('generate.html')
+
 
 @bp.route('/weighty-wednesday', defaults={'seed': None})
 @bp.route('/weighty-wednesday/<int:seed>')
