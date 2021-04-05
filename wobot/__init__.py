@@ -1,5 +1,8 @@
-from flask import Flask
-from .workouts import TimedWorkout, Tabata, TimePyramid, TotalRandom, NAME_HASHES, Rest
+import ast
+
+from flask import Flask, request
+
+from .workouts import TimedWorkout, Tabata, EXOX, TimePyramid, TotalRandom, NAME_HASHES, Rest
 from .exercises import ALL_EQUIPMENT
 
 def create_app(test_config=None):
@@ -45,6 +48,26 @@ def index():
 def create_workout():
     return render_template('generate.html')
 
+
+@bp.route('/run-workout', methods=['POST', "GET"])
+def run_workout():
+    if request.method == 'POST':
+        global WOUT_CODE
+        WOUT_CODE = request.form['data']
+        return ('', 204)
+    elif request.method == 'GET':
+        if WOUT_CODE:
+            block = ast.parse(WOUT_CODE, mode='exec')
+        
+            # assumes last node is an expression
+            last = ast.Expression(block.body.pop().value)
+            _locals = {}
+            exec(compile(block, '<string>', mode='exec'), globals(), _locals)
+            wout = eval(compile(last, '<string>', mode='eval'), globals(), _locals)
+            total_time = [sum([ex.on_time for ex in wout])]
+            return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+    else:
+        print("WATTT")
 
 @bp.route('/weighty-wednesday', defaults={'seed': None})
 @bp.route('/weighty-wednesday/<int:seed>')
