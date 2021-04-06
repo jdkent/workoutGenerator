@@ -1,8 +1,11 @@
 import ast
+import re
 
 from flask import Flask, request
-
-from .workouts import TimedWorkout, Tabata, EXOX, TimePyramid, TotalRandom, NAME_HASHES, Rest
+from .workouts import (
+    TimedWorkout, Tabata, EXOX, TotalRandom, 
+    DropSet, TimePyramid, NAME_HASHES, Rest
+)
 from .exercises import ALL_EQUIPMENT
 
 def create_app(test_config=None):
@@ -49,14 +52,21 @@ def create_workout():
     return render_template('generate.html')
 
 
-@bp.route('/run-workout', methods=['POST', "GET"])
-def run_workout():
+@bp.route('/run-workout', methods=['POST', "GET"], defaults={'seed': None})
+@bp.route('/run-workout/<int:seed>', methods=["GET"])
+def run_workout(seed):
     if request.method == 'POST':
         global WOUT_CODE
         WOUT_CODE = request.form['data']
         return ('', 204)
     elif request.method == 'GET':
         if WOUT_CODE:
+            if seed and "seed" in WOUT_CODE:
+                old_seed = re.search(r"seed=([0-9]+)", WOUT_CODE).groups()[0]
+                WOUT_CODE = WOUT_CODE.replace(f".init(seed={old_seed}, ", f".init(seed={seed}, ")
+            elif seed:
+                WOUT_CODE = WOUT_CODE.replace(".init(", f".init(seed={seed}, ")
+
             block = ast.parse(WOUT_CODE, mode='exec')
         
             # assumes last node is an expression

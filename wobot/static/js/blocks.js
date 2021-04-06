@@ -1,16 +1,7 @@
-Blockly.Blocks['chest'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("chest");
-    this.setOutput(true, "muscle");
-    this.setColour(90);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
 Blockly.Blocks['exox'] = {
   init: function() {
+    this.appendDummyInput()
+        .appendField("EXOX");
     this.appendDummyInput()
         .appendField("n_exercises:")
         .appendField(new Blockly.FieldNumber(4, 0), "n_exercises");
@@ -34,6 +25,210 @@ Blockly.Blocks['exox'] = {
         .appendField("muscles");
     this.setOutput(true, "workout");
     this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['tabata'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Tabata");
+    this.appendDummyInput()
+        .appendField("n_exercises:")
+        .appendField(new Blockly.FieldNumber(4, 0), "n_exercises");
+    this.appendDummyInput()
+        .appendField("rounds:")
+        .appendField(new Blockly.FieldNumber(3, 0), "rounds");
+    this.appendDummyInput()
+        .appendField("on_time:")
+        .appendField(new Blockly.FieldNumber(20, 0), "on_time");
+    this.appendDummyInput()
+        .appendField("off_time:")
+        .appendField(new Blockly.FieldNumber(10, 0), "off_time");
+    this.appendDummyInput()
+        .appendField("round_rest:")
+        .appendField(new Blockly.FieldNumber(10, 0), "round_rest"); 
+    this.appendDummyInput()
+        .appendField("alternate:")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "alternate");   
+    this.appendValueInput("etypes")
+        .setCheck("Array")
+        .appendField("etypes");
+    this.appendValueInput("equipment")
+        .setCheck("Array")
+        .appendField("equipment");
+    this.appendValueInput("muscles")
+        .setCheck("Array")
+        .appendField("muscles");
+    this.setOutput(true, "workout");
+    this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['drop_set'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Drop Set");
+    this.appendDummyInput()
+        .appendField("n_exercises:")
+        .appendField(new Blockly.FieldNumber(4, 0), "n_exercises");
+    this.appendDummyInput()
+        .appendField("on_time:")
+        .appendField(new Blockly.FieldNumber(30, 0), "on_time");
+    this.appendDummyInput()
+        .appendField("off_time:")
+        .appendField(new Blockly.FieldNumber(0, 0), "off_time");
+    this.appendDummyInput()
+        .appendField("round_rest:")
+        .appendField(new Blockly.FieldNumber(10, 0), "round_rest");    
+    this.appendValueInput("etypes")
+        .setCheck("Array")
+        .appendField("etypes");
+    this.appendValueInput("equipment")
+        .setCheck("Array")
+        .appendField("equipment");
+    this.appendValueInput("muscles")
+        .setCheck("Array")
+        .appendField("muscles");
+    this.setOutput(true, "workout");
+    this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['timed_workout'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Timed Workout");
+    this.appendDummyInput()
+        .appendField("n_exercises:")
+        .appendField(new Blockly.FieldNumber(4, 0), "n_exercises");
+    this.appendDummyInput()
+        .appendField("rounds:")
+        .appendField(new Blockly.FieldNumber(3, 0), "rounds");
+    this.appendDummyInput()
+        .appendField("on_time:")
+        .appendField(new Blockly.FieldNumber(20, 0), "on_time");
+    this.appendDummyInput()
+        .appendField("off_time:")
+        .appendField(new Blockly.FieldNumber(10, 0), "off_time");
+    this.appendDummyInput()
+        .appendField("round_rest:")
+        .appendField(new Blockly.FieldNumber(10, 0), "round_rest");
+    this.appendDummyInput()
+        .appendField("alternate:")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "alternate");    
+    this.appendValueInput("etypes")
+        .setCheck("Array")
+        .appendField("etypes");
+    this.appendValueInput("equipment")
+        .setCheck("Array")
+        .appendField("equipment");
+    this.appendValueInput("muscles")
+        .setCheck("Array")
+        .appendField("muscles");
+    this.setOutput(true, "workout");
+    this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['time_pyramid'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Time Pyramid");
+    this.appendDummyInput()
+        .appendField("bottom:")
+        .appendField(new Blockly.FieldNumber(20, 0), "bottom");
+    this.appendDummyInput()
+        .appendField("top:")
+        .appendField(new Blockly.FieldNumber(60, 0), "top");
+    this.appendDummyInput()
+        .appendField("off_time:")
+        .appendField(new Blockly.FieldNumber(10, 0), "off_time");
+    this.appendDummyInput()
+        .appendField("n_exercises:")
+        .appendField(new Blockly.FieldNumber(5, 0), "n_exercises"); 
+    this.appendDummyInput()
+        .appendField("single_top:")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "single_top");     
+    this.appendValueInput("etypes")
+        .setCheck("Array")
+        .appendField("etypes");
+    this.appendValueInput("equipment")
+        .setCheck("Array")
+        .appendField("equipment");
+    this.appendValueInput("muscles")
+        .setCheck("Array")
+        .appendField("muscles");
+    this.setOutput(true, "workout");
+    this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['total_random'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Total Random");
+    this.appendDummyInput()
+        .appendField("on_time - low:")
+        .appendField(new Blockly.FieldNumber(20, 0), "on_low")
+        .appendField("high:")
+        .appendField(new Blockly.FieldNumber(60, 0), "on_high");
+    this.appendDummyInput()
+        .appendField("off_time - low:")
+        .appendField(new Blockly.FieldNumber(5, 0), "off_low")
+        .appendField("high:")
+        .appendField(new Blockly.FieldNumber(20, 0), "off_high");
+    this.appendDummyInput()
+        .appendField("on_probability:")
+        .appendField(new Blockly.FieldNumber(75, 0, 100), "on_probability");
+    this.appendDummyInput()
+        .appendField("n_exercises:")
+        .appendField(new Blockly.FieldNumber(35, 0), "n_exercises");
+    this.appendValueInput("etypes")
+        .setCheck("Array")
+        .appendField("etypes");
+    this.appendValueInput("equipment")
+        .setCheck("Array")
+        .appendField("equipment");
+    this.appendValueInput("muscles")
+        .setCheck("Array")
+        .appendField("muscles");
+    this.setOutput(true, "workout");
+    this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['rest'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Rest");
+    this.appendDummyInput()
+        .appendField("on_time")
+        .appendField(new Blockly.FieldNumber(10, 0), "on_time");
+    this.setOutput(true, "workout");
+    this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['chest'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("chest");
+    this.setOutput(true, "muscle");
+    this.setColour(90);
  this.setTooltip("");
  this.setHelpUrl("");
   }
