@@ -1,7 +1,7 @@
 import ast
 import re
 
-from flask import Flask, request
+from flask import Flask, request, make_response
 from .workouts import (
     TimedWorkout, Tabata, EXOX, TotalRandom, 
     DropSet, TimePyramid, NAME_HASHES, Rest
@@ -56,10 +56,12 @@ def create_workout():
 @bp.route('/run-workout/<int:seed>', methods=["GET"])
 def run_workout(seed):
     if request.method == 'POST':
-        global WOUT_CODE
+        res = make_response()
         WOUT_CODE = request.form['data']
-        return ('', 204)
+        res.set_cookie("WOUT_CODE", value=WOUT_CODE)
+        return (res, 204)
     elif request.method == 'GET':
+        WOUT_CODE = request.cookies.get('WOUT_CODE')
         if WOUT_CODE:
             if seed and "seed" in WOUT_CODE:
                 old_seed = re.search(r"seed=([0-9]+)", WOUT_CODE).groups()[0]
