@@ -43,8 +43,12 @@
           "soundScheme":8,
           "intervals":[
           {% for exercise in exercises -%}
-              {
+              {   
+                  {% if exercise.reps -%}
+                  "name":"{{ repr(exercise) }}",
+                  {% else -%}
                   "name":"{{ str(exercise) }}",
+                  {% endif -%}
                   "duration":{{ exercise.on_time }},
                   {% if str(exercise) == "Rest" -%}
                   "color":1,
