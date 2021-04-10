@@ -106,6 +106,15 @@ def pyramid(seed):
     total_time = [sum([ex.on_time for ex in wout])]
     return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
+
+@bp.route('/variety-hour', defaults={'seed': None})
+@bp.route('/variety-hour/<int:seed>')
+def variety(seed):
+    wout = variety_hour(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
+
 def weighty_wednesday(seed=None):
     SEED = seed
     only_equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
@@ -172,3 +181,48 @@ def pyramid_workout(seed=None):
 
 
     return lower_pyramid1 + [Rest(20)] + upper_pyramid1 + [Rest(20)] + core_pyramid1 + [Rest(20)] + lower_pyramid2 + [Rest(20)] + upper_pyramid2 + [Rest(20)] + core_pyramid2
+
+
+def variety_hour(seed=None):
+    arms = ('Biceps', 'Triceps', 'Shoulders', "Forearms")
+    upper_body = ("Chest", "MiddleBack", "Lats", "Traps")
+    lower_body = ('Quadriceps', 'Hamstrings', 'Glutes', 'Calves', "LowerBack", "Abductors", "Adductors")
+    abs_ = ("Abdominals",)
+
+    timed_workout = TimedWorkout(
+        on_time=45, off_time=15, round_rest=0, rounds=2, n_exercises=4,
+    )
+    tabata = Tabata(on_time=20, off_time=10, round_rest=0, rounds=4, n_exercises=3)
+    emom = EXOX(rounds=3, n_exercises=2)
+    drop_set = DropSet(n_exercises=4, on_time=30, off_time=0, round_rest=10)
+    rand = TotalRandom(n_exercises=10)
+    pyramid = TimePyramid(n_exercises=5)
+
+    wout = []
+    exclude = []
+
+    wout += timed_workout.init(
+        muscles=arms+upper_body, equipment=("dumbbell", "kettlebell", "band"), etypes=("strength",)
+    )
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += tabata.init(muscles=lower_body, exclude_exercises=exclude, alt=True)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += drop_set.init(muscles=abs_, exclude_exercises=exclude, equipment=(None,))
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += emom.init(muscles=arms+upper_body, exclude_exercises=exclude)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += pyramid.init(muscles=lower_body, exclude_exercises=exclude)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += rand.init(muscles=abs_, exclude_exercises=exclude, equipment=(None,))
+
+    return wout
