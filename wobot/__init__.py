@@ -115,6 +115,14 @@ def variety(seed):
     return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
+@bp.route('/emomonday', defaults={'seed': None})
+@bp.route('/emomonday/<int:seed>')
+def emoms(seed):
+    wout = emomonday(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
+
 def weighty_wednesday(seed=None):
     SEED = seed
     only_equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
@@ -224,5 +232,47 @@ def variety_hour(seed=None):
     exclude = list(set([ex.__class__ for ex in wout]))
 
     wout += rand.init(muscles=abs_, exclude_exercises=exclude, equipment=(None,))
+
+    return wout
+
+
+def emomonday(seed=None):
+    arms = ('Biceps', 'Triceps', 'Shoulders', "Forearms")
+    upper_body = ("Chest", "MiddleBack", "Lats", "Traps")
+    lower_body = ('Quadriceps', 'Hamstrings', 'Glutes', 'Calves', "LowerBack", "Abductors", "Adductors")
+    abs_ = ("Abdominals",)
+
+    wout = []
+    exclude = []
+
+    emom = EXOX(rounds=3, n_exercises=3)
+    fake_tabata = TimedWorkout(
+        on_time=20, off_time=10, round_rest=0, rounds=3, n_exercises=2
+    )
+
+    # lower body
+    wout += fake_tabata.init(muscles=lower_body)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += emom.init(muscles=lower_body, exclude_exercises=exclude)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    # upper body
+    wout += fake_tabata.init(muscles=upper_body + arms, exclude_exercises=exclude)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += emom.init(muscles=upper_body + arms, exclude_exercises=exclude)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    # abs
+    wout += fake_tabata.init(muscles=abs_, exclude_exercises=exclude)
+    wout += [Rest(15)]
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += emom.init(muscles=abs_, exclude_exercises=exclude)
 
     return wout
