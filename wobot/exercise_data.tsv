@@ -82,7 +82,7 @@ ReverseCrunches	['Abdominals']	strength	[None]	3.0
 ReversePlanks	['Shoulders', 'LowerBack']	strength	[None]	
 RussianTwists	['Abdominals']	strength	[None]	0.75
 ShoulderPresses	['Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.25
-ShoulderTaps	['Shoulders', 'Abdominals']	cardio	[None]	0.75
+ShoulderTaps	['Shoulders', 'Abdominals']	cardio	[None]	1.0
 SideLunges	['Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	2.5
 SidePlankDips	['Abdominals']	strength	[None, 'dumbbell']	1.1
 SidePlankRotations	['Abdominals']	strength	[None, 'dumbbell']	2.25
@@ -101,7 +101,7 @@ SquatJumps	['Quadriceps']	cardio	[None]	1.75
 SquatPresses	['Quadriceps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.75
 SquatPulses	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
 Squats	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	1.5
-StarCrunches	['Abdominals']	strength	[None]	1.25
+StarCrunches	['Abdominals']	strength	[None]	1.5
 StarJumps	['Quadriceps']	cardio	[None]	2.5
 StarPlanks	['Abdominals']	strength	[None]	
 StraightLegSitUps	['Abdominals']	strength	[None]	2.0
