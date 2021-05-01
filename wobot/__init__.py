@@ -123,6 +123,14 @@ def emoms(seed):
     return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
+@bp.route('/tabata', defaults={'seed': None})
+@bp.route('/tabata/<int:seed>')
+def tabatas(seed):
+    wout = all_tabata(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
+
 def weighty_wednesday(seed=None):
     SEED = seed
     only_equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
@@ -210,24 +218,24 @@ def variety_hour(seed=None):
     exclude = []
 
     wout += timed_workout.init(
-        muscles=arms+upper_body, equipment=("dumbbell", "kettlebell", "band"), etypes=("strength",)
+        muscles=arms+upper_body, equipment=("dumbbell", "kettlebell", "band"), etypes=("strength",), seed=seed,
     )
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
-    wout += tabata.init(muscles=lower_body, exclude_exercises=exclude, alt=True)
+    wout += tabata.init(muscles=lower_body, exclude_exercises=exclude, alt=True, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
-    wout += drop_set.init(muscles=abs_, exclude_exercises=exclude, equipment=(None,))
+    wout += drop_set.init(muscles=abs_, exclude_exercises=exclude, equipment=(None,), seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
-    wout += emom.init(muscles=arms+upper_body, exclude_exercises=exclude)
+    wout += emom.init(muscles=arms+upper_body, exclude_exercises=exclude, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
-    wout += pyramid.init(muscles=lower_body, exclude_exercises=exclude)
+    wout += pyramid.init(muscles=lower_body, exclude_exercises=exclude, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
@@ -251,28 +259,54 @@ def emomonday(seed=None):
     )
 
     # lower body
-    wout += fake_tabata.init(muscles=lower_body)
+    wout += fake_tabata.init(muscles=lower_body, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
-    wout += emom.init(muscles=lower_body, exclude_exercises=exclude)
+    wout += emom.init(muscles=lower_body, exclude_exercises=exclude, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
     # upper body
-    wout += fake_tabata.init(muscles=upper_body + arms, exclude_exercises=exclude)
+    wout += fake_tabata.init(muscles=upper_body + arms, exclude_exercises=exclude, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
-    wout += emom.init(muscles=upper_body + arms, exclude_exercises=exclude)
+    wout += emom.init(muscles=upper_body + arms, exclude_exercises=exclude, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
     # abs
-    wout += fake_tabata.init(muscles=abs_, exclude_exercises=exclude)
+    wout += fake_tabata.init(muscles=abs_, exclude_exercises=exclude, seed=seed)
     wout += [Rest(15)]
     exclude = list(set([ex.__class__ for ex in wout]))
 
-    wout += emom.init(muscles=abs_, exclude_exercises=exclude)
+    wout += emom.init(muscles=abs_, exclude_exercises=exclude, seed=seed)
+
+    return wout
+
+
+def all_tabata(seed=None):
+    arms = ('Biceps', 'Triceps', 'Shoulders', "Forearms")
+    upper_body = ("Chest", "MiddleBack", "Lats", "Traps")
+    lower_body = ('Quadriceps', 'Hamstrings', 'Glutes', 'Calves', "LowerBack", "Abductors", "Adductors")
+    abs_ = ("Abdominals",)
+
+    wout = []
+    exclude = []
+
+    tabata = Tabata(rounds=4, n_exercises=6, on_time=20, off_time=10, round_rest=10)
+
+    # lower body
+    wout += tabata.init(muscles=lower_body, seed=seed)
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    # upper body
+    wout += tabata.init(muscles=upper_body + arms, exclude_exercises=exclude, seed=seed)
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+
+    # abs
+    wout += tabata.init(muscles=abs_, exclude_exercises=exclude, seed=seed)
 
     return wout
