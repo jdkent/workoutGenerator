@@ -1,10 +1,12 @@
 name	muscles	etype	equipment	rep_time
 AccordianCrunches	['Abdominals']	strength	[None]	1.25
+AlternateAccordians	['Abdominals']	strength	[None]	1.25
 AlternateJacks	['LowerBack', 'Quadriceps', 'Calves']	cardio	[None]	1.8
 AnkleTaps	['Abdominals']	strength	[None]	0.5
 ArnoldPresses	['Shoulders']	strength	['kettlebell', 'dumbbell']	3
 BackFlies	['MiddleBack']	strength	['band', 'kettlebell', 'dumbbell']	2.25
 BandPullAparts	['MiddleBack']	strength	['band', 'kettlebell', 'dumbbell']	2.75
+BearTapPlankPushups	['Chest', 'Triceps', 'Shoulders']	strength	[None]	4.25
 BeastPoseHolds	['Abdominals', 'Quadriceps', 'Shoulders']	strength	[None]	
 BentOverRows	['MiddleBack']	strength	['band', 'kettlebell', 'dumbbell']	1.8
 BentOverTricepExtensions	['Triceps']	strength	['band', 'kettlebell', 'dumbbell']	2
@@ -15,27 +17,37 @@ BoatHold	['Abdominals']	strength	[None]
 BridgePulses	['LowerBack', 'Glutes', 'Hamstrings']	strength	[None]	
 Bridges	['LowerBack', 'Glutes', 'Hamstrings']	strength	[None]	1.25
 Burpees	['Quadriceps', 'Chest', 'Shoulders', 'Abdominals']	cardio	[None]	3
+BurpeesToPresses	['Quadriceps', 'Shoulders', 'Abdominals']	cardio	['kettlebell', 'dumbbell']	4
+BurpeesWithPushups	['Quadriceps', 'Chest', 'Shoulders', 'Abdominals']	cardio	[None]	3.75
 BusDrivers	['Shoulders']	strength	['dumbbell']	
 ButterflyCrunches	['Abdominals']	strength	[None]	1
 CalfRaises	['Calves']	strength	[None]	1.5
 ChaturangaPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
 ChestFlies	['Chest']	strength	['band', 'kettlebell', 'dumbbell']	2.5
+CircleCurls	['Biceps']	strength	['kettlebell', 'dumbbell']	4
+Clams	['Abductors', 'Glutes']	strength	[None, 'band']	1.25
 ClappingPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	3
+CrabKickTricepDips	['Hamstrings', 'LowerBack', 'Triceps']	strength	[None]	1.75
 Crunches	['Abdominals']	strength	[None]	1
 CurlPulses	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	
 Curls	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	2
 CurtsyLunges	['Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	3.25
 DeadBugs	['Abdominals']	strength	[None]	1.25
 DeadLifts	['LowerBack', 'Hamstrings']	strength	['band', 'kettlebell', 'dumbbell']	2.8
+DeadliftToLunges	['Hamstrings', 'LowerBack', 'Quadriceps']	strength	[None, 'band', 'kettlebell', 'dumbbell']	5
 DeclinePushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
+DiamondSquatJumps	['Quadriceps']	cardio	[None, 'kettlebell', 'dumbbell']	4.75
 Dips	['Triceps', 'Chest']	strength	[None]	2.25
 DiveBombPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	5
 DonkeyKicks	['Glutes']	strength	[None]	1.5
 DonkeyKneeToElbows	['Glutes']	strength	[None]	2.5
 DonkeyPulses	['Glutes']	strength	[None]	
 DonkeyRainbows	['Glutes']	strength	[None]	2.75
-DoubleJumpBurpees	['Quadriceps', 'Chest', 'Shoulders', 'Abdominals']	cardio	[None]	4.5
+DoubleJumpBurpees	['Quadriceps', 'Chest', 'Shoulders', 'Abdominals']	cardio	[None]	5
+DoubleSquatJumpBurpees	['Quadriceps', 'Shoulders', 'Abdominals']	cardio	['kettlebell', 'dumbbell']	5.5
 DownDogPushUps	['Shoulders']	strength	[None]	2.5
+DuckWalks	['Glutes']	cardio	['band', 'kettlebell', 'dumbbell']	
+Dumb/kettleBellAroundTheHead	['Shoulders']	strength	['kettlebell', 'dumbbell']	3.5
 DumbbellPullovers	['Lats', 'Shoulders']	strength	['dumbbell', 'kettlebell']	2.25
 FigureEightBoatHold	['Abdominals']	strength	['dumbbell', 'kettlebell']	
 FigureEightLegLifts	['Abdominals']	strength	[None]	6
@@ -44,6 +56,7 @@ FlutterKicks	['Abdominals']	strength	[None]	0.3
 ForearmCurls	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	2
 FrogPressBridges	['LowerBack', 'Abductors']	strength	[None]	1.25
 FrontRaises	['Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	3
+GluteBridgeWalkouts	['Hamstrings']	strength	[None]	5
 GobletSquats	['Quadriceps', 'Glutes']	strength	['kettlebell', 'dumbbell']	2.25
 GoodMornings	['LowerBack', 'Hamstrings']	strength	['dumbbell', 'kettlebell']	2.75
 HalfBurpees	['Quadriceps', 'Chest', 'Shoulders', 'Abdominals']	cardio	[None]	2.5
@@ -52,37 +65,53 @@ HighCurls	['Biceps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2
 HighKnees	['Quadriceps']	cardio	[None]	0.5
 HollowBodyRocks	['Abdominals']	strength	[None]	
 InchWorms	['Abdominals']	strength	[None]	5
+InchwormTapPushups	['Abdominals', 'Chest', 'Shoulders']	strength	[None]	7
 InnerThighRaises	['Adductors']	strength	[None]	1
+JudoBurpees	['Quadriceps', 'Shoulders', 'Abdominals']	cardio	[None]	5.5
 JudoRolls	['Abdominals', 'Quadriceps']	cardio	[None]	3.25
 JumpingJacks	['Shoulders', 'Calves']	cardio	[None]	1
 KettleBellSwings	['LowerBack', 'Hamstrings', 'Shoulders']	cardio	['dumbbell', 'kettlebell']	1.8
-LSits	['Abdominals']	strength	[None]	
-LatPullDowns	['Lats']	strength	['band']	1.5
 LateralRaises	['Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	3
+LateralSquatWalks	['Glutes', 'Quadriceps']	cardio	['band', 'kettlebell', 'dumbbell']	
+LatPullDowns	['Lats']	strength	['band']	1.5
 LegLifts	['Abdominals']	strength	[None]	2
+LSits	['Abdominals']	strength	[None]	
 LungeBurpees	['Quadriceps', 'Chest', 'Shoulders', 'Abdominals']	cardio	[None]	5
+LungeCurls	['Quadriceps', 'Biceps']	strength	['kettlebell', 'dumbbell']	4
 Lunges	['Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	2
-MountainClimberTwists	['Abdominals', 'Quadriceps', 'Shoulders']	cardio	[None]	1
+LungPulseHop	['Quadriceps']	cardio	[None, 'kettlebell', 'dumbbell']	
+LyingRussianTwists	['Abdominals']	strength	['kettlebell', 'dumbbell']	1
 MountainClimbers	['Abdominals', 'Quadriceps', 'Shoulders']	cardio	[None]	0.5
+MountainClimberTwists	['Abdominals', 'Quadriceps', 'Shoulders']	cardio	[None]	1
 MuleKicks	['Quadriceps', 'Shoulders', 'Abdominals']	cardio	[None]	2.75
 NarrowPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
 ObliqueCrunches	['Abdominals']	strength	[None]	1
+OneAndOneHalfCurls	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	3
+OneAndOneHalfRDLs	['LowerBack', 'Hamstrings']	strength	['band', 'kettlebell', 'dumbbell']	7
 OutAndInCurls	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	
 OutwardCurls	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	2
+OverheadSquats	['Quadriceps', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.75
 OverheadTricepExtensions	['Triceps']	strength	['band', 'kettlebell', 'dumbbell']	2
 PistolSquats	['Quadriceps']	strength	[None]	4
 PlankJacks	['Abdominals', 'Quadriceps', 'Shoulders']	cardio	[None]	1
+PlankReach	['Abdominals', 'Shoulders']	strength	[None]	
+Plank	['Abdominals']	strength	[None]	
+PlankWalk	['Abdominals', 'Shoulders']	strength	[None]	
 PlankWithHipRotations	['Abdominals']	strength	[None]	1
-Planks	['Abdominals']	strength	[None]	
+PrisonerSquats	['Quadriceps']	strength	[None]	4
 ProneLegLifts	['LowerBack']	strength	[None]	2.25
+PushPressJumpingJacks	['Shoulders', 'Calves']	cardio	['kettlebell', 'dumbbell']	1.75
 PushUpJackTaps	['Chest', 'Triceps', 'Shoulders', 'Quadriceps']	cardio	[None]	4.25
 PushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
 RenegadePushUps	['Chest', 'Triceps', 'Shoulders', 'MiddleBack']	strength	['dumbbell', 'kettlebell']	4
 ReverseCrunches	['Abdominals']	strength	[None]	3
+ReverseInchWorms	['Abdominals']	strength	[None]	5
 ReversePlanks	['Shoulders', 'LowerBack']	strength	[None]	
-RussianTwists	['Abdominals']	strength	[None, ‘kettlebell’, ‘dumbbell’]	0.75
+RussianTwists	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	0.75
+ScissorKicks	['Abdominals']	cardio	[None]	0.4
+SeatedLegRaises	['Abdominals']	strength	[None]	2
 ShoulderPresses	['Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.25
-ShoulderTaps	['Shoulders', 'Abdominals']	cardio	[None]	1.0
+ShoulderTaps	['Shoulders', 'Abdominals']	cardio	[None]	1
 SideLunges	['Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	2.5
 SidePlankDips	['Abdominals']	strength	[None, 'dumbbell']	1.1
 SidePlankRotations	['Abdominals']	strength	[None, 'dumbbell']	2.25
@@ -98,9 +127,15 @@ SpiderPlanks	['Abdominals']	strength	[None]	1.75
 SquatHold	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
 SquatJump180s	['Quadriceps']	cardio	[None]	1.75
 SquatJumps	['Quadriceps']	cardio	[None]	1.75
-SquatPresses	['Quadriceps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.75
+SquatPresses	['Quadriceps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	3
+SquatPulseLadder	['Quadriceps']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
 SquatPulses	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
 Squats	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	1.5
+SquatToJumpingJacks	['Quadriceps']	cardio	[None]	2
+SquatToLunges	['Quadriceps']	strength	[None, 'band', 'kettlebell', 'dumbbell']	4
+SquatWalk	['Quadriceps']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
+StandingFigure8s	['Biceps', 'Quadriceps', 'Abdominals']	strength	['kettlebell', 'dumbbell']	3
+StandingLegExtensions	['Quadriceps']	strength	[None]	2.5
 StarCrunches	['Abdominals']	strength	[None]	1.75
 StarJumps	['Quadriceps']	cardio	[None]	2.5
 StarPlanks	['Abdominals']	strength	[None]	
@@ -111,29 +146,23 @@ Supermans	['LowerBack']	strength	[None]	1.75
 SurferBurpees	['Quadriceps', 'Chest', 'Shoulders', 'Abdominals']	cardio	[None]	3.75
 SvendPresses	['Shoulders']	strength	['kettlebell', 'dumbbell']	2.25
 SwitchLunges	['Quadriceps']	cardio	[None, 'kettlebell', 'dumbbell']	1.5
-TPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	3
 TeaPots	['Abdominals']	strength	['band', 'kettlebell', 'dumbbell']	1.75
+ThreeWayVUps	['Abdominals']	strength	[None]	6
 ToeTouches	['Abdominals']	strength	[None]	1
+TPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	3
 TricepExtensionPulses	['Triceps']	strength	['band', 'kettlebell', 'dumbbell']	
 TuckJumps	['Quadriceps']	cardio	[None]	2
+TwistingCrunches	['Abdominals']	strength	[None]	1
+UnderHandedBentOverRows	['MiddleBack']	strength	['band', 'kettlebell', 'dumbbell']	1.8
+UpdownPlankBurpees	['Quadriceps', 'Shoulders', 'Triceps', 'Abdominals']	cardio	[None]	4.25
+UpdownPlankPushups	['Abdominals', 'Chest', 'Shoulders', 'Triceps']	strength	[None]	4.5
 UpDownPlanks	['Abdominals', 'Shoulders', 'Triceps']	strength	[None]	2.5
 UprightRows	['Traps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.25
 VUps	['Abdominals']	strength	[None]	1.75
 WallSit	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
+WideHandPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
 Wiggles	['Abdominals']	strength	[None]	0.65
 Windmills	['Abdominals']	strength	['dumbbell', 'kettlebell']	3
 WindshieldWipers	['Abdominals']	strength	[None]	2.75
 WoodChoppers	['Abdominals', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.25
-YTWLs	['MiddleBack', 'Shoulders']	strength	[None]	4.0
-PrisonerSquats	['Quadriceps']	strength	[None]	4.0
-LungeCurls	['Quadriceps']	strength	['kettlebell', 'dumbbell']	4.0
-ScissorKicks	['Abdominals']	cardio	[None]	0.4
-3WayVUps	['Abdominals']	strength	[None]	2
-StandingLegExtensions	['Quadriceps']	strength	[None]	2.5
-SeatedLegRaises	['Abdominals']	strength	[None]	2
-WideHandPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25
-UnderHandedBentOverRows	['MiddleBack']	strength	['band', 'kettlebell', 'dumbbell']	1.8
-ReverseInchWorms	['Abdominals']	strength	[None]	5
-GluteBridgeWalkouts	['Hamstrings']	strength	[None]	5
-DuckWalks	['Glutes']	cardio	['band', 'kettlebell', 'dumbbell']	
-LateralSquatWalks	['Glutes', 'Quadriceps']	cardio	['band', 'kettlebell', 'dumbbell']	
+YTWLs	['MiddleBack', 'Shoulders']	strength	[None]	4
