@@ -168,3 +168,4 @@ Windmills	['Abdominals']	strength	['dumbbell', 'kettlebell']	3
 WindshieldWipers	['Abdominals']	strength	[None]	2.75
 WoodChoppers	['Abdominals', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.25
 YTWLs	['MiddleBack', 'Shoulders']	strength	[None]	4
+KickThroughs	['Abdominals']	strength	[None]	2.25
