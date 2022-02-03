@@ -99,6 +99,14 @@ def thirty(seed):
     return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
+@bp.route('/only-abs', defaults={'seed': None})
+@bp.route('/only-abs/<int:seed>')
+def abs_(seed):
+    wout = only_abs(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
+
 @bp.route('/pyramid', defaults={'seed': None})
 @bp.route('/pyramid/<int:seed>')
 def pyramid(seed):
@@ -127,6 +135,14 @@ def emoms(seed):
 @bp.route('/tabata/<int:seed>')
 def tabatas(seed):
     wout = all_tabata(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
+
+@bp.route('/for-samon', defaults={'seed': None})
+@bp.route('/for-samon/<int:seed>')
+def for_samon(seed):
+    wout = samon_preferred(seed)
     total_time = [sum([ex.on_time for ex in wout])]
     return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
@@ -166,6 +182,16 @@ def thirty_thursday(seed=None):
     random_workout = total_random.init(equipment=(None,), seed=SEED)
 
     return random_workout
+
+
+def only_abs(seed=None):
+    SEED = seed
+    core = ("Abdominals",)
+
+    total_random = TotalRandom(n_exercises=35)
+    abs_workout = total_random.init(muscles=core, etypes=("strength",), seed=SEED)
+
+    return abs_workout
 
 
 def pyramid_workout(seed=None):
@@ -308,5 +334,16 @@ def all_tabata(seed=None):
 
     # abs
     wout += tabata.init(muscles=abs_, exclude_exercises=exclude, seed=seed)
+
+    return wout
+
+
+def samon_preferred(seed=None):
+    SEED = seed
+    muscles = ('Biceps', "Triceps")
+    equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
+    long_wout = TimedWorkout(on_time=45, off_time=15, round_rest=0, rounds=3, n_exercises=10)
+
+    wout = long_wout.init(muscles=muscles, equipment=equipment, alt=True, seed=SEED)
 
     return wout
