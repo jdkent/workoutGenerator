@@ -93,9 +93,9 @@ OutwardCurls	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	2
 OverheadSquats	['Quadriceps', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.75
 OverheadTricepExtensions	['Triceps']	strength	['band', 'kettlebell', 'dumbbell']	2
 PistolSquats	['Quadriceps']	strength	[None]	4
+Plank	['Abdominals']	strength	[None]	
 PlankJacks	['Abdominals', 'Quadriceps', 'Shoulders']	cardio	[None]	1
 PlankReach	['Abdominals', 'Shoulders']	strength	[None]	
-Plank	['Abdominals']	strength	[None]	
 PlankWalk	['Abdominals', 'Shoulders']	strength	[None]	
 PlankWithHipRotations	['Abdominals']	strength	[None]	1
 PrisonerSquats	['Quadriceps']	strength	[None]	4
@@ -122,8 +122,10 @@ SingleLegDeadLifts	['LowerBack', 'Hamstrings']	strength	['band', 'kettlebell', '
 SitUps	['Abdominals']	strength	[None]	1.75
 SkaterHops	['Quadriceps', 'Abductors']	cardio	[None]	1.75
 SkullCrushers	['Triceps']	strength	['kettlebell', 'dumbbell']	2.25
+SlalomJumps	['Quadriceps']	cardio	[None]	0.85
 SpiderManPushUps	['Chest', 'Triceps', 'Shoulders', 'Abdominals']	strength	[None]	3
 SpiderPlanks	['Abdominals']	strength	[None]	1.75
+SplitSquats	['Quadriceps']	strength	[None, 'band', 'kettlebell', 'dumbbell']	2
 SquatHold	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']	
 SquatJump180s	['Quadriceps']	cardio	[None]	1.75
 SquatJumps	['Quadriceps']	cardio	[None]	1.75
