@@ -169,3 +169,4 @@ WindshieldWipers	['Abdominals']	strength	[None]	2.75
 WoodChoppers	['Abdominals', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.25
 YTWLs	['MiddleBack', 'Shoulders']	strength	[None]	4
 KickThroughs	['Abdominals']	strength	[None]	2.25
+TurkishGetUps	['Shoulders', 'Abdominals', 'Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	15
