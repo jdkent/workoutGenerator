@@ -147,6 +147,14 @@ def for_samon(seed):
     return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
 
 
+@bp.route('/you-v-you', defaults={'seed': None})
+@bp.route('/you-v-you/<int:seed>')
+def youvyou(seed):
+    wout = you_v_you(seed)
+    total_time = [sum([ex.on_time for ex in wout])]
+    return render_template('workout.html', exercises=wout, total_time=total_time, repr=repr, str=str)
+
+
 def weighty_wednesday(seed=None):
     SEED = seed
     only_equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
@@ -345,5 +353,118 @@ def samon_preferred(seed=None):
     long_wout = TimedWorkout(on_time=45, off_time=15, round_rest=0, rounds=3, n_exercises=10)
 
     wout = long_wout.init(muscles=muscles, equipment=equipment, alt=True, seed=SEED)
+
+    return wout
+
+
+def you_v_you(seed=None):
+    SEED = seed
+    only_equipment = [eq for eq in ALL_EQUIPMENT if eq is not None]
+    no_equipment = [None]
+    timed1 = TimedWorkout(on_time=45, off_time=15, round_rest=0, rounds=1, n_exercises=1)
+    timed2 = TimedWorkout(on_time=45, off_time=15, round_rest=0, rounds=1, n_exercises=2)
+    timed3 = TimedWorkout(on_time=45, off_time=15, round_rest=0, rounds=1, n_exercises=3)
+    timed5 = TimedWorkout(on_time=45, off_time=15, round_rest=0, rounds=1, n_exercises=5)
+    timed_abs = TimedWorkout(on_time=40, off_time=0, round_rest=0, rounds=1, n_exercises=6)
+    wout = []
+    exclude = []
+
+    wout += timed2.init(
+        muscles=('Quadriceps',),
+        equipment=only_equipment,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed3.init(
+        muscles=("LowerBack", "Hamstrings"),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed2.init(
+        muscles=('Quadriceps',),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed2.init(
+        muscles=('Glutes',),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed1.init(
+        muscles=('Quadriceps',),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed5.init(
+        muscles=('Chest', 'Triceps'),
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed1.init(
+        muscles=('MiddleBack',),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed3.init(
+        muscles=('Biceps', "Shoulders"),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed1.init(
+        muscles=('MiddleBack',),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += timed_abs.init(
+        muscles=("Abdominals",),
+        equipment=only_equipment,
+        exclude_exercises=exclude,
+        etypes=("strength",),
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
+
+    wout += [Rest(10)]
+
+    wout += timed_abs.init(
+        muscles=("Abdominals",),
+        equipment=no_equipment,
+        exclude_exercises=exclude,
+        seed=seed,
+    )
+    exclude = list(set([ex.__class__ for ex in wout]))
 
     return wout
