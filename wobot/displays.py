@@ -4,7 +4,6 @@ from os import system, name
 
 import numpy as np
 import simpleaudio as sa
-import numpy as np
 
 
 class bcolors:
