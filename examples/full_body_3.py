@@ -1,7 +1,7 @@
-from wobot.workouts import TimedWorkout, DropSet, EXOX, Rest
+from wobot.workouts import TimedWorkout, DropSet, NAME_HASHES, EXOX, Rest
 from wobot.displays import ShellDisplay
 
-SEED = 413
+SEED = NAME_HASHES["James"]
 drop_set = DropSet(on_time=30, off_time=0, round_rest=10, n_exercises=4)
 emom = EXOX(difficulty=0.75, rounds=3)
 exclude = []

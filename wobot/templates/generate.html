@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Let's make a workout{% endblock %}</h1>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="static/js/blocks.js"></script>
+  <script src="static/js/python_compressed.js"></script>
+  <script src="static/js/generators.js"></script>
+{% endblock %}
+
+{% block content %}
+<ul>
+  <li><button id="run" type="button"> Run Code </button></li>
+  <li>
+    <label for="myfile">Load Workout</label><input id="myfile"  type="file" onchange="importBlocksFile(this);" accept=".txt,.xml">
+  </li>
+  <li>
+    <label>Filename: <input type="xml" class="filename" id="xml-filename" for="savefile" placeholder="my workout"/>.xml</label>
+    <input id="savefile" value="Save File" type="button" onclick="exportBlocks(document.getElementById('xml-filename').value);" />
+  </li>
+</ul>
+<div id="blocklyDiv" style="height: 480px; width: 1200px;"></div>
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <category name="muscles">
+    <block type="chest"></block>
+    <block type="shoulders"></block>
+    <block type="forearms"></block>
+    <block type="traps"></block>
+    <block type="triceps"></block>
+    <block type="neck"></block>
+    <block type="biceps"></block>
+    <block type="lats"></block>
+    <block type="lower_back"></block>
+    <block type="abductors"></block>
+    <block type="calves"></block>
+    <block type="abdominals"></block>
+    <block type="glutes"></block>
+    <block type="hamstrings"></block>
+    <block type="quadriceps"></block>
+    <block type="middle_back"></block>
+    <block type="adductors"></block>
+  </category>
+  <category name="equipment">
+    <block type="body_weight"></block>
+    <block type="dumbbell"></block>
+    <block type="band"></block>
+    <block type="kettlebell"></block>
+  </category>
+  <category name="exercise types">
+    <block type="strength"></block>
+    <block type="cardio"></block>
+  </category>
+  <category name="workouts">
+    <block type="exox">
+      <field name="n_exercises">4</field>
+      <field name="rounds">3</field>
+      <field name="difficulty">0</field>
+      <field name="interval">60</field>
+    </block>
+    <block type="tabata">
+      <field name="n_exercises">4</field>
+      <field name="rounds">3</field>
+      <field name="on_time">20</field>
+      <field name="off_time">10</field>
+      <field name="round_rest">10</field>
+      <field name="alternate">TRUE</field>
+    </block>
+    <block type="drop_set">
+      <field name="n_exercises">4</field>
+      <field name="on_time">30</field>
+      <field name="off_time">0</field>
+      <field name="round_rest">10</field>
+    </block>
+    <block type="timed_workout">
+      <field name="n_exercises">4</field>
+      <field name="rounds">3</field>
+      <field name="on_time">20</field>
+      <field name="off_time">10</field>
+      <field name="round_rest">10</field>
+      <field name="alternate">TRUE</field>
+    </block>
+    <block type="time_pyramid">
+      <field name="bottom">20</field>
+      <field name="top">60</field>
+      <field name="off_time">10</field>
+      <field name="n_exercises">5</field>
+      <field name="single_top">TRUE</field>
+    </block>
+    <block type="total_random">
+      <field name="on_low">20</field>
+      <field name="on_high">60</field>
+      <field name="off_low">5</field>
+      <field name="off_high">20</field>
+      <field name="on_probability">75</field>
+      <field name="n_exercises">35</field>
+    </block>
+    <block type="rest">
+      <field name="on_time">10</field>
+    </block>
+  </category>
+  <category name="helpers">
+    <block type="lists_create_with">
+      <mutation items="3"></mutation>
+    </block>
+    <block type="connect_workouts"></block>
+  </category>
+</xml>
+<xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
+  <block type="connect_workouts" id="asdfwaerqwewrwg">
+    <value name="workouts">
+      <block type="lists_create_with" id="H^AOM$#)K{OK#">
+        <mutation items="1"></mutation>
+        <value name="ADD0">
+          <block type="exox" id="[cR-;Hc:=Y_}Ci)rx0cr" x="-87" y="-288">
+            <field name="n_exercises">4</field>
+            <field name="rounds">3</field>
+            <field name="difficulty">75</field>
+            <field name="interval">60</field>
+            <value name="etypes">
+              <block type="lists_create_with" id="T!0;RfxgbY%#B!ULTG!_">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                  <block type="strength" id="=;[1s9;pv5F{H1.?Pl9u"></block>
+                </value>
+                <value name="ADD1">
+                  <block type="cardio" id="uH,H60^#l;|g|2x4jZ1j"></block>
+                </value>
+              </block>
+            </value>
+            <value name="equipment">
+              <block type="lists_create_with" id="#Pfbtt,fb)~Ca3URag9$">
+                <mutation items="4"></mutation>
+                <value name="ADD0">
+                  <block type="body_weight" id="IMsxV[=%k-Ip@4DiVI7-"></block>
+                </value>
+                <value name="ADD1">
+                  <block type="dumbbell" id="J6*TQk^M4*[:.J%VQt1@"></block>
+                </value>
+                <value name="ADD2">
+                  <block type="band" id="ZD/_-KsFf?XeHaj2UpuT"></block>
+                </value>
+                <value name="ADD3">
+                  <block type="kettlebell" id="2^G0VSl*1w-7z0*HvowX"></block>
+                </value>
+              </block>
+            </value>
+            <value name="muscles">
+              <block type="lists_create_with" id="giWc8B`U*7HMSrzb:fo{">
+                <mutation items="3"></mutation>
+                <value name="ADD0">
+                  <block type="glutes" id="0Lf^/ivFWxcEM{GZCccS"></block>
+                </value>
+                <value name="ADD1">
+                  <block type="lower_back" id="gNYBSv#le(E,:NVtZ=/@"></block>
+                </value>
+                <value name="ADD2">
+                  <block type="quadriceps" id="~N|j4$LH:@w}U_?~d/q_"></block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  var toolbox = document.getElementById("toolbox");
+
+  var options = { 
+    toolbox : toolbox, 
+    zoom :
+         {controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2,
+          pinch: true},
+    collapse : true, 
+    comments : true, 
+    disable : true, 
+    maxBlocks : Infinity, 
+    trashcan : true, 
+    horizontalLayout : false, 
+    toolboxPosition : 'start', 
+    css : true, 
+    media : 'https://blockly-demo.appspot.com/static/media/', 
+    rtl : false, 
+    scrollbars : true, 
+    sounds : true, 
+    oneBasedIndex : true
+  };
+
+  /* Inject your workspace */ 
+  var workspace = Blockly.inject("blocklyDiv", options);
+
+  /* Load Workspace Blocks from XML to workspace. Remove all code below if no blocks to load */
+
+  /* TODO: Change workspace blocks XML ID if necessary. Can export workspace blocks XML from Workspace Factory. */
+  var workspaceBlocks = document.getElementById("workspaceBlocks"); 
+
+  /* Load blocks to workspace. */
+  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
+
+
+  function myUpdateFunction() {
+    var code = Blockly.Python.workspaceToCode(workspace);
+    $.post("/run-workout",
+      {
+        data: code
+      },
+      function(){
+        window.location.href='{{ url_for( "workout.run_workout" ) }}';
+    });
+    /* document.getElementById('textarea').value = code */
+  }
+
+  document.getElementById("run").onclick = function() {myUpdateFunction()}
+
+  function exportBlocks(fname) {
+    try {
+      var xml = Blockly.Xml.workspaceToDom(workspace);
+      var xml_text = Blockly.Xml.domToText(xml);
+      
+      var link = document.createElement('a');
+      link.download= fname + ".xml";
+      link.href="data:application/octet-stream;utf-8," + encodeURIComponent(xml_text);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (e) {
+      window.location.href="data:application/octet-stream;utf-8," + encodeURIComponent(xml_text);
+      alert(e);
+    }
+  }
+
+  function importBlocksFile(element) {
+    try {	
+      var file = element.files[0];
+      var fr = new FileReader();           
+      fr.onload = function (event) {
+        var xml = Blockly.Xml.textToDom(event.target.result);
+        workspace.clear();
+        Blockly.Xml.domToWorkspace(xml, workspace);
+      };
+      fr.readAsText(file);
+    } catch (e) {
+      alert(e);
+    }	  
+  }
+
+</script>
+{% endblock %}

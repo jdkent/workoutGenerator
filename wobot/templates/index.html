@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Check out these workouts!{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<ul>
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.weighty" ) }}';">Weighty Wednesday</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.thirty" ) }}';">Thirty Thursday</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.pyramid" ) }}';">Pyramid</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.variety" ) }}';">Variety Hour</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.emoms" ) }}';">Emomonday</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.tabatas" ) }}';">Tabata</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.abs_" ) }}';">Only Abs</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.for_samon" ) }}';">For Samon</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.youvyou" ) }}';">You-V-You</button></li>
+
+    <li><button type="button" onclick="window.location.href='{{ url_for( "workout.create_workout" ) }}';">Create Your Own Workout</button></li>
+</ul>
+
+{% endblock %}
