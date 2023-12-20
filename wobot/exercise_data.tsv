@@ -65,10 +65,10 @@ HammerCurls	['Biceps']	strength	['band', 'kettlebell', 'dumbbell']	2
 HighCurls	['Biceps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2	https://www.youtube.com/embed/-WKKdI7dhwA	
 HighKnees	['Quadriceps']	cardio	[None]	0.5		
 HollowBodyRocks	['Abdominals']	strength	[None]			
-InchWorms	['Abdominals']	strength	[None]	5		
+InchWorms	['Abdominals']	strength	[None]	5	https://www.youtube.com/embed/H_YsTBL4Q-Q	
 InchwormTapPushups	['Abdominals', 'Chest', 'Shoulders']	strength	[None]	7		
 InnerThighRaises	['Adductors']	strength	[None, 'dumbbell']	1		
-JudoBurpees	['Quadriceps', 'Shoulders', 'Abdominals']	cardio	[None]	5.5		
+JudoBurpees	['Quadriceps', 'Shoulders', 'Abdominals']	cardio	[None]	5.5	https://www.youtube.com/embed/QKdo-T_TlVM	
 JudoRolls	['Abdominals', 'Quadriceps']	cardio	[None]	3.25		
 JumpingJacks	['Shoulders', 'Calves']	cardio	[None]	1		
 KettleBellSwings	['LowerBack', 'Hamstrings', 'Shoulders']	cardio	['dumbbell', 'kettlebell']	1.8		
@@ -106,7 +106,7 @@ PushUpJackTaps	['Chest', 'Triceps', 'Shoulders', 'Quadriceps']	cardio	[None]	4.2
 PushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25		
 RenegadePushUps	['Chest', 'Triceps', 'Shoulders', 'MiddleBack']	strength	['dumbbell', 'kettlebell']	4	https://www.youtube.com/embed/clVj2dQ_GoY	
 ReverseCrunches	['Abdominals']	strength	[None]	3		
-ReverseInchWorms	['Abdominals']	strength	[None]	5		
+ReverseInchWorms	['Abdominals']	strength	[None]	5	https://www.youtube.com/embed/C04fm4LuI5s	
 ReversePlanks	['Shoulders', 'LowerBack']	strength	[None]			
 RussianTwists	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	0.75		
 ScissorKicks	['Abdominals']	cardio	[None]	0.4		
@@ -121,11 +121,11 @@ SingleArmUprightRows	['Traps', 'Shoulders']	strength	['band', 'kettlebell', 'dum
 SingleLegBridges	['LowerBack', 'Glutes', 'Hamstrings']	strength	[None]	1.5		
 SingleLegDeadLifts	['LowerBack', 'Hamstrings']	strength	['band', 'kettlebell', 'dumbbell']	2.8		
 SitUps	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	1.75		
-SkaterHops	['Quadriceps', 'Abductors']	cardio	[None]	1.75		
+SkaterHops	['Quadriceps', 'Abductors']	cardio	[None]	1.75	https://www.youtube.com/embed/P9IAAME-1zw	
 SkullCrushers	['Triceps']	strength	['kettlebell', 'dumbbell']	2.25		
 SlalomJumps	['Quadriceps']	cardio	[None]	0.85	https://www.youtube.com/embed/LWIwwaQYSK0	
-SpiderManPushUps	['Chest', 'Triceps', 'Shoulders', 'Abdominals']	strength	[None]	3		
-SpiderPlanks	['Abdominals']	strength	[None]	1.75		
+SpiderManPushUps	['Chest', 'Triceps', 'Shoulders', 'Abdominals']	strength	[None]	3	https://www.youtube.com/embed/qG2oWGqXSdw	
+SpiderPlanks	['Abdominals']	strength	[None]	1.75	https://www.youtube.com/embed/HVyHcalg61g	
 SplitSquats	['Quadriceps']	strength	[None, 'band', 'kettlebell', 'dumbbell']	2		
 SquatHold	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']			
 SquatJump180s	['Quadriceps']	cardio	[None]	1.75		
@@ -140,40 +140,40 @@ SquatWalk	['Quadriceps']	strength	[None, 'band', 'kettlebell', 'dumbbell']
 StandingFigure8s	['Biceps', 'Quadriceps', 'Abdominals']	strength	['kettlebell', 'dumbbell']	3		
 StandingLegExtensions	['Quadriceps']	strength	[None]	2.5		
 StarCrunches	['Abdominals']	strength	[None]	1.75		
-StarJumps	['Quadriceps']	cardio	[None]	2.5		
-StarPlanks	['Abdominals']	strength	[None]			
+StarJumps	['Quadriceps']	cardio	[None]	2.5	https://www.youtube.com/embed/GNXXsHFI8Y4	
+StarPlanks	['Abdominals']	strength	[None]		https://www.youtube.com/embed/a3hfwl9Sidc	
 StraightLegSitUps	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	2		
 SumoDeadLifts	['LowerBack', 'Hamstrings']	strength	['band', 'kettlebell', 'dumbbell']	2.8		
 SumoSquats	['Quadriceps', 'Adductors']	strength	[None, 'kettlebell', 'dumbbell']	1.8		
 Supermans	['LowerBack']	strength	[None]	1.75		
 SurferBurpees	['Quadriceps', 'Chest', 'Shoulders']	cardio	[None]	3.75		
-SvendPresses	['Shoulders']	strength	['kettlebell', 'dumbbell']	2.25		
+SvendPresses	['Shoulders']	strength	['kettlebell', 'dumbbell']	2.25	https://www.youtube.com/embed/cIoUZOnypS8	
 SwitchLunges	['Quadriceps']	cardio	[None, 'kettlebell', 'dumbbell']	1.5		
-TeaPots	['Abdominals']	strength	['band', 'kettlebell', 'dumbbell']	1.75		
+TeaPots	['Abdominals']	strength	['band', 'kettlebell', 'dumbbell']	1.75	https://www.youtube.com/embed/pjb-hlTsy_8	
 ThreeWayVUps	['Abdominals']	strength	[None]	6		
 ToeTouches	['Abdominals']	strength	[None]	1		
-TPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	3		
+TPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	3	https://www.youtube.com/embed/1CYd6a90F0A	
 TricepExtensionPulses	['Triceps']	strength	['band', 'kettlebell', 'dumbbell']			
-TuckJumps	['Quadriceps']	cardio	[None]	2		
+TuckJumps	['Quadriceps']	cardio	[None]	2	https://www.youtube.com/embed/r7oBejx1PHM	
 TwistingCrunches	['Abdominals']	strength	[None]	1.25		
 UnderHandedBentOverRows	['MiddleBack']	strength	['band', 'kettlebell', 'dumbbell']	1.8		
 UpdownPlankBurpees	['Quadriceps', 'Shoulders', 'Triceps', 'Abdominals']	cardio	[None]	4.25		
 UpdownPlankPushups	['Abdominals', 'Chest', 'Shoulders', 'Triceps']	strength	[None]	4.5		
 UpDownPlanks	['Abdominals', 'Shoulders', 'Triceps']	strength	[None]	2.5		
 UprightRows	['Traps', 'Shoulders']	strength	['band', 'kettlebell', 'dumbbell']	2.25		
-VUps	['Abdominals']	strength	[None]	1.75		
+VUps	['Abdominals']	strength	[None]	1.75	https://www.youtube.com/embed/7UVgs18Y1P4	
 WallSit	['Quadriceps', 'Glutes']	strength	[None, 'band', 'kettlebell', 'dumbbell']			
 WideHandPushUps	['Chest', 'Triceps', 'Shoulders']	strength	[None]	2.25		
-Wiggles	['Abdominals']	strength	[None]	0.65		
-Windmills	['Abdominals']	strength	['dumbbell', 'kettlebell']	3		
-WindshieldWipers	['Abdominals']	strength	[None]	2.75		
-WoodChoppers	['Abdominals', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.25		
-YTWLs	['MiddleBack', 'Shoulders']	strength	[None]	4		
-KickThroughs	['Abdominals']	strength	[None]	2.25		
-TurkishGetUps	['Shoulders', 'Abdominals', 'Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	15		
-PlankPullThroughs	['Shoulders', 'Abdominals', 'MiddleBack']	strength	['kettlebell', 'dumbbell']	2.5		
-SottsPresses	['Shoulders']	strength	['kettlebell', 'dumbbell']	2.75		
-SquatWithHeelTaps	['Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	1.75		
-PlankRows	['Shoulders', 'Abdominals', 'MiddleBack']	strength	['kettlebell', 'dumbbell']	2.5		
-PullOverBicycleCrunch	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	2.85		
-KneeHugs	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	2		
+Wiggles	['Abdominals']	strength	[None]	0.65	https://www.youtube.com/embed/lfBgI49su0s	
+Windmills	['Abdominals']	strength	['dumbbell', 'kettlebell']	3	https://www.youtube.com/embed/ogCw52FZlfM	
+WindshieldWipers	['Abdominals']	strength	[None]	2.75	https://www.youtube.com/embed/eZd0nvh7Uhs	
+WoodChoppers	['Abdominals', 'Shoulders']	strength	['kettlebell', 'dumbbell']	2.25	https://www.youtube.com/embed/b65s5BtdOEc	
+YTWLs	['MiddleBack', 'Shoulders']	strength	[None]	4	https://www.youtube.com/embed/Yv6sUKOwOY8	
+KickThroughs	['Abdominals']	strength	[None]	2.25	https://www.youtube.com/embed/6U5Gs-LfReI	
+TurkishGetUps	['Shoulders', 'Abdominals', 'Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	15	https://www.youtube.com/embed/sgd8n917Zv0	
+PlankPullThroughs	['Shoulders', 'Abdominals', 'MiddleBack']	strength	['kettlebell', 'dumbbell']	2.5	https://www.youtube.com/embed/wTinzKzL5Ls	
+SottsPresses	['Shoulders']	strength	['kettlebell', 'dumbbell']	2.75	https://www.youtube.com/embed/eJ9MLnNV6FY	
+SquatWithHeelTaps	['Quadriceps']	strength	[None, 'kettlebell', 'dumbbell']	1.75	https://www.youtube.com/embed/yppNasTDUOc	
+PlankRows	['Shoulders', 'Abdominals', 'MiddleBack']	strength	['kettlebell', 'dumbbell']	2.5	https://www.youtube.com/embed/-NP3Wke4GLA	
+PullOverBicycleCrunch	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	2.85	https://www.youtube.com/embed/Iwyvozckjak	
+KneeHugs	['Abdominals']	strength	[None, 'kettlebell', 'dumbbell']	2	https://www.youtube.com/embed/O0CXYaPWs90	
